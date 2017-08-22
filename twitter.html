@@ -107,6 +107,10 @@
                   onAddEntry($('#input').val());
               });
 
+              $(window).bind('beforeunload', function () {
+                  return 'Are you sure you want to leave?';
+              });
+
               if (typeof (Storage) !== "undefined") {
                   // Code for localStorage/sessionStorage.
                   getEntries();
@@ -148,7 +152,7 @@
 
               entry0.append($('<div class="buttons"></div>').append(clipboard, edit, post, delete0));
 
-              $(".entries").append(entry0);
+              $(".entries").prepend(entry0);
           }
 
           function save() {
@@ -238,6 +242,8 @@
                 </div>-->
 
             </div>
+
+            <a href="https://twitter.com/share" class="twitter-share-button" data-text="test" data-lang="en" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         </article>
     </div>
 
@@ -254,6 +260,7 @@
         $( document ).ready(function() {
             PAGE.Load();
         });
+
     </script>
 </body>
 </html>
