@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>My Twitter App</title>
+
+    <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+    <meta name="description" content="Web Developer from Somewhere">
+    <meta property="og:description" content="Web Developer from Somewhere" />
+
+    <meta name="author" content="Your Name" />
+
+
+    <meta property="og:title" content="MyTwitterApp" />
+    <meta property="twitter:title" content="MyTwitterApp" />
+
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!--<link rel="stylesheet" type="text/css" href="./style.css" />-->
+    <link rel="alternate" type="application/rss+xml" title="Your Name - Web Developer from Somewhere" href="/feed.xml" />
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+
+<body>
+    <style>
+        .border-1-black {
+            border: 1px solid black;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        textarea {
+            resize: none;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        textarea:focus {
+            border: 1px solid #2c0fe9;
+            outline:none;
+        }
+
+        .entry {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 1em;
+            margin-top: 1em;
+        }
+
+    </style>
+
+    <script>
+      function countChar(val) {
+        var len = val.value.length;
+        if (len >= 500) {
+          val.value = val.value.substring(0, 500);
+        } else {
+          $('#charNum').text(len);
+        }
+      };
+    </script>
+
+
+    <div class="wrapper-masthead">
+        <div class="container">
+            <header class="masthead clearfix">
+                <a href="/" class="site-avatar"><img src="https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/jekyll-logo.png" /></a>
+
+                <div class="site-info">
+                    <h1 class="site-name"><a href="/">Your Name</a></h1>
+                    <p class="site-description">Web Developer from Somewhere</p>
+                </div>
+
+                <nav>
+                    <a href="/">Blog</a>
+                    <a href="/about">About</a>
+                </nav>
+            </header>
+        </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+        <article class="page">
+
+            <div>
+                <textarea onkeyup="countChar(this)" maxlength="140"></textarea>
+            </div>
+            <div class="text-right"><span id="charNum">0</span>/140</div>
+            <div>
+                <button>Add</button>
+            </div>
+
+            <div class="entry">
+                <div>
+                    <p>
+                        A place to include any other types of information that you’d like to include about yourself.
+                    </p>
+                </div>
+                <div>
+                    <button>Clipboard</button>
+                    <button>Edit</button>
+                    <button>Post</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div>
+                    <p>
+                        Sample Entry 1
+                    </p>
+                </div>
+                <div>
+                    <button>Clipboard</button>
+                    <button>Edit</button>
+                    <button>Post</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <div class="wrapper-footer">
+        <div class="container">
+            <footer class="footer">
+                <a href="https://github.com/barryclark/jekyll-now"><i class="svg-icon github"></i></a>
+                <a href="https://www.twitter.com/jekyllrb"><i class="svg-icon twitter"></i></a>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
+
