@@ -103,6 +103,10 @@
           var entries = [];
 
           function pageLoad() {
+              $('#add-entry').click(function () {
+                  onAddEntry($('#input').val());
+              });
+
               if (typeof (Storage) !== "undefined") {
                   // Code for localStorage/sessionStorage.
                   getEntries();
@@ -147,13 +151,23 @@
               $(".entries").append(entry0);
           }
 
-
           function save() {
               localStorage.setItem('entries', JSON.stringify(entries));
           }
 
+          function onAddEntry(text) {
+              if (text && text.length > 0) {
+                  ux_addEntry({ id: entries.length - 1, data: text });
+                  $('#input').val('');
+                  entries.push(text);
+                  console.log(entries);
+              }
+          }
+
+
           my.Load = pageLoad;
           my.Save = save;
+          my.Entries = entries;
 
           return my;
       }(jQuery));
@@ -184,12 +198,12 @@
 
             <div>
                 <div>
-                    <textarea onkeyup="countChar(this)" maxlength="140"></textarea>
+                    <textarea id="input" onkeyup="countChar(this)" maxlength="140"></textarea>
                 </div>
                 <div class="pad-right-10 pad-left-10">
                     <div class="text-right"><span id="charNum">0</span>/140</div>
                     <div>
-                        <button>Add</button>
+                        <button id="add-entry">Add</button>
                     </div>
                 </div>
             </div>
