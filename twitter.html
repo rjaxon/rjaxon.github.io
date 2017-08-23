@@ -31,13 +31,17 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 
 </head>
 
 
 <body>
     <style>
+        .hidden {
+            display: none;
+        }
+
         .border-1-black {
             border: 1px solid black;
         }
@@ -50,6 +54,7 @@
             resize: none;
             width: 100%;
             border-radius: 5px;
+            height: 80px;
         }
 
         textarea:focus {
@@ -147,10 +152,9 @@
 
               var clipboard = $("<button></button>").text("Clipboard");
               var edit = $("<button></button>").text("Edit");
-              var post = $("<button></button>").text("Post");
               var delete0 = $("<button></button>").text("Delete");
 
-              entry0.append($('<div class="buttons"></div>').append(clipboard, edit, post, delete0));
+              entry0.append($('<div class="buttons"></div>').append(clipboard, edit, delete0));
 
               $(".entries").prepend(entry0);
           }
@@ -180,7 +184,7 @@
 
 
     <div class="wrapper-masthead">
-        <div class="container">
+        <div class="container hidden">
             <header class="masthead clearfix">
                 <a href="/" class="site-avatar"><img src="https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/jekyll-logo.png" /></a>
 
@@ -213,21 +217,8 @@
             </div>
 
             <div class="entries">
-                <!--<div class="entry">
-                    <div>
-                        <p>
-                            A place to include any other types of information that you’d like to include about yourself.
-                        </p>
-                    </div>
-                    <div>
-                        <button>Clipboard</button>
-                        <button>Edit</button>
-                        <button>Post</button>
-                        <button>Delete</button>
-                    </div>
-                </div>
 
-                <div class="entry">
+                <!--<div class="entry">
                     <div>
                         <p>
                             Sample Entry 1
@@ -243,12 +234,11 @@
 
             </div>
 
-            <a href="https://twitter.com/share" class="twitter-share-button" data-text="test" data-lang="en" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         </article>
     </div>
 
     <div class="wrapper-footer">
-        <div class="container">
+        <div class="container hidden">
             <footer class="footer">
                 <a href="https://github.com/barryclark/jekyll-now"><i class="svg-icon github"></i></a>
                 <a href="https://www.twitter.com/jekyllrb"><i class="svg-icon twitter"></i></a>
