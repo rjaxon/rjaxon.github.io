@@ -33,6 +33,9 @@
 
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+    
+
 </head>
 
 
@@ -77,6 +80,10 @@
             padding-right: 10px;
         }
 
+        .pad-bottom-10 {
+            padding-bottom: 10px;
+        }
+
         .buttons button {
             margin-left: 5px;
             margin-right: 5px;
@@ -106,15 +113,16 @@
           var my = {};
 
           var entries = [];
+          var toDelete = [];
 
           function pageLoad() {
               $('#add-entry').click(function () {
                   onAddEntry($('#input').val());
               });
 
-              $(window).bind('beforeunload', function () {
-                  return 'Are you sure you want to leave?';
-              });
+              //$(window).bind('beforeunload', function () {
+              //    return 'Are you sure you want to leave?';
+              //});
 
               if (typeof (Storage) !== "undefined") {
                   // Code for localStorage/sessionStorage.
@@ -147,12 +155,15 @@
               console.log('adding' + entry.id + ": " + entry.data);
 
               var entry0 = $("<div class='entry'></div>");
-              var contents = $('<div></div>').append($('<p></p>').text(entry.data));
+
+              var con0 = $('<div class="text-right"></div>').html('<span>0</span>/140');
+              var con1 = $('<div class="entry-contents pad-bottom-10" id="entry-contents-' + entry.id + '"></div>').text(entry.data);
+              var contents = $('<div></div>').append(con0, con1);
               entry0.append(contents);
 
-              var clipboard = $("<button></button>").text("Clipboard");
-              var edit = $("<button></button>").text("Edit");
-              var delete0 = $("<button></button>").text("Delete");
+              var clipboard = $("<button class='btn-copy' id='" + entry.id + "' data-clipboard-target='#entry-contents-" + entry.id + "'></button>").text("Clipboard");
+              var edit = $("<button onclick='PAGE.Edit(this);' id='" + entry.id + "'></button>").text("Edit");
+              var delete0 = $("<button onclick='PAGE.Delete(this);' id='" + entry.id + "'></button>").text("Delete");
 
               entry0.append($('<div class="buttons"></div>').append(clipboard, edit, delete0));
 
@@ -160,22 +171,45 @@
           }
 
           function save() {
+              // delete entries first.
               localStorage.setItem('entries', JSON.stringify(entries));
           }
 
           function onAddEntry(text) {
               if (text && text.length > 0) {
-                  ux_addEntry({ id: entries.length - 1, data: text });
+                  ux_addEntry({ id: entries.length, data: text });
                   $('#input').val('');
                   entries.push(text);
                   console.log(entries);
               }
           }
 
+          function add() {
+              console.log('add');
+          }
+
+          function copy() {
+              console.log('copy');
+          }
+
+          function edit(sender) {
+              console.log('edit');
+              console.log(sender);
+              var id = sender.id;
+              $('#input').val(entries[id]);
+          }
+
+          function _delete() {
+              console.log('_delete');
+          }
 
           my.Load = pageLoad;
           my.Save = save;
           my.Entries = entries;
+          my.Add = add;
+          my.Copy = copy;
+          my.Edit = edit;
+          my.Delete = _delete;
 
           return my;
       }(jQuery));
@@ -199,6 +233,12 @@
                 </nav>
             </header>
         </div>
+
+        <div class="container">
+            <header class="masthead clearfix">
+                <a href="#" class="site-avatar" id="Save" onclick="PAGE.Save(); return false;"><img src="https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/jekyll-logo.png" /></a>
+            </header>
+        </div>
     </div>
 
     <div id="main" role="main" class="container">
@@ -211,7 +251,7 @@
                 <div class="pad-right-10 pad-left-10">
                     <div class="text-right"><span id="charNum">0</span>/140</div>
                     <div>
-                        <button id="add-entry">Add</button>
+                        <button id="add-entry" onclick="PAGE.Add();">Add</button>
                     </div>
                 </div>
             </div>
@@ -220,14 +260,14 @@
 
                 <!--<div class="entry">
                     <div>
-                        <p>
+                        <div class="text-right"><span>0</span>/140</div>
+                        <div class="entry-contents pad-bottom-10">
                             Sample Entry 1
-                        </p>
+                        </div>
                     </div>
                     <div>
                         <button>Clipboard</button>
                         <button>Edit</button>
-                        <button>Post</button>
                         <button>Delete</button>
                     </div>
                 </div>-->
