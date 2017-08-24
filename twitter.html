@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>My Twitter App</title>
+    <title>Tweetpad</title>
 
     <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -165,7 +165,7 @@
               var entry0 = $("<div class='entry' id='entry-" + entry.id + "'></div>");
 
               var con0 = $('<div class="text-right"></div>').html('<span>' + entry.data.length + '</span>/140 (500)');
-              var con1 = $('<div class="entry-contents pad-bottom-10" id="entry-contents-' + entry.id + '"></div>').text(entry.data);
+              var con1 = $('<div class="entry-contents pad-bottom-10" id="entry-contents-' + entry.id + '"></div>').html(entry.data.replace(/\n/g, '<br/>'));
               var contents = $('<div></div>').append(con0, con1);
               entry0.append(contents);
 
