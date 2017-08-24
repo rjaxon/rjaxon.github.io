@@ -114,6 +114,7 @@
 
             textarea {
                 border-radius: 0px;
+                height: 500px;
             }
 
             .entry {
@@ -154,10 +155,6 @@
               });
 
               $('#maxInput').text(MAX_INPUT);
-
-              //$(window).bind('beforeunload', function () {
-              //    return 'Are you sure you want to leave?';
-              //});
 
               if (typeof (Storage) !== "undefined") {
                   // Code for localStorage/sessionStorage.
@@ -205,26 +202,18 @@
               $(".entries").prepend(entry0);
           }
 
-          function compareNumbers(a, b) {
+          function sortDecending(a, b) {
               return b - a;
           }
 
           function save() {
               // delete entries first.
+              toDelete.sort(sortDecending);
+              for (j = 0; j < toDelete.length; j++) {
+                  entries.splice(toDelete[j], 1);
+              }
 
-              console.log(toDelete);
-              toDelete.sort(compareNumbers);
-              console.log(toDelete);
-
-              console.log(entries);
-              //for (var i = entries.length - 1; entries.length >= 0; i--) {
-                  for (j = 0; j < toDelete.length; j++) {
-                      entries.splice(toDelete[j], 1);
-                  }
-              //}
-                  console.log(entries);
-
-                  toDelete = [];
+              toDelete = [];
 
               localStorage.setItem('entries', JSON.stringify(entries));
               $('#logo').removeClass('border-red-2');
@@ -242,17 +231,12 @@
                   console.log(entries);
               }
           }
-
-          //function add() {
-          //    console.log('add');
-          //}
-
+        
           function copy() {
               console.log('copy');
           }
 
           function edit(sender) {
-              //console.log('edit');
               console.log(sender);
               var id = sender.id;
               $('#input').val(entries[id]);
@@ -280,7 +264,6 @@
           my.Load = pageLoad;
           my.Save = save;
           my.Entries = entries;
-          //my.Add = add;
           my.Copy = copy;
           my.Edit = edit;
           my.Delete = _delete;
@@ -294,7 +277,7 @@
     <div class="wrapper-masthead">
         <div class="container hidden">
             <header class="masthead clearfix">
-                <a href="/" class="site-avatar"><img src="https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/jekyll-logo.png" /></a>
+                <a href="/" class="site-avatar"><img src="/images/jekyll-logo.png" /></a>
 
                 <div class="site-info">
                     <h1 class="site-name"><a href="/">Your Name</a></h1>
@@ -310,7 +293,7 @@
 
         <div class="container">
             <header class="masthead clearfix">
-                <a href="#" class="site-avatar" id="Save" onclick="PAGE.Save(); return false;"><img id="logo" class="border-green-2" src="https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/jekyll-logo.png" /></a>
+                <a href="#" class="site-avatar" id="Save" onclick="PAGE.Save(); return false;"><img id="logo" width="70" height="70" class="border-green-2" src="/images/jekyll-logo.png" /></a>
             </header>
         </div>
     </div>
