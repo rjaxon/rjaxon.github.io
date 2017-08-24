@@ -105,13 +105,38 @@
         .border-green-2 {
             border: 2px solid green;
         }
+
+        @media (max-width: 412px) {
+            .container {
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+
+            textarea {
+                border-radius: 0px;
+            }
+
+            .entry {
+                border: 0px solid red;
+                border-radius: 0px;
+                padding: 1em;
+                margin-top: 0em;
+            }
+
+            .entry:first-child {
+                margin-top: 1em;
+            }
+            .entry:nth-child(even) {background: white;}
+            .entry:nth-child(odd) {background: #f3f3f3;}
+        }
     </style>
 
     <script type="text/javascript">
+        var MAX_INPUT = 1000;
       function countChar(val) {
         var len = val.value.length;
-        if (len >= 500) {
-          val.value = val.value.substring(0, 500);
+        if (len >= MAX_INPUT) {
+            val.value = val.value.substring(0, MAX_INPUT);
         } else {
           $('#charNum').text(len);
         }
@@ -127,6 +152,8 @@
               $('#add-entry').click(function () {
                   onAddEntry($('#input').val());
               });
+
+              $('#maxInput').text(MAX_INPUT);
 
               //$(window).bind('beforeunload', function () {
               //    return 'Are you sure you want to leave?';
@@ -164,14 +191,14 @@
 
               var entry0 = $("<div class='entry' id='entry-" + entry.id + "'></div>");
 
-              var con0 = $('<div class="text-right"></div>').html('<span>' + entry.data.length + '</span>/140 (500)');
+              var con0 = $('<div class="text-right"></div>').html('<span>' + entry.data.length + '</span>/140 (' + MAX_INPUT + ')');
               var con1 = $('<div class="entry-contents pad-bottom-10" id="entry-contents-' + entry.id + '"></div>').html(entry.data.replace(/\n/g, '<br/>'));
               var contents = $('<div></div>').append(con0, con1);
               entry0.append(contents);
 
-              var clipboard = $("<button class='btn-copy' id='" + entry.id + "' data-clipboard-target='#entry-contents-" + entry.id + "'></button>").text("Clipboard");
-              var edit = $("<button onclick='PAGE.Edit(this);' id='" + entry.id + "'></button>").text("Edit");
-              var delete0 = $("<button onclick='PAGE.Delete(this);' id='" + entry.id + "'></button>").text("Delete");
+              var clipboard = $("<button class='btn' id='" + entry.id + "' data-clipboard-target='#entry-contents-" + entry.id + "'></button>").text("Clipboard");
+              var edit = $("<button class='btn' onclick='PAGE.Edit(this);' id='" + entry.id + "'></button>").text("Edit");
+              var delete0 = $("<button class='btn btn-danger' onclick='PAGE.Delete(this);' id='" + entry.id + "'></button>").text("Delete");
 
               entry0.append($('<div class="buttons"></div>').append(clipboard, edit, delete0));
 
@@ -296,9 +323,9 @@
                     <textarea id="input" onkeyup="countChar(this)" maxlength="500"></textarea>
                 </div>
                 <div class="pad-right-10 pad-left-10">
-                    <div class="text-right"><span id="charNum">0</span>/140 (500)</div>
+                    <div class="text-right"><span id="charNum">0</span>/140 (<span id="maxInput">[N]</span>)</div>
                     <div>
-                        <button id="add-entry" onclick="PAGE.Add();">Add</button>
+                        <button class="btn btn-primary" id="add-entry" onclick="PAGE.Add();">Add</button>
                     </div>
                 </div>
             </div>
