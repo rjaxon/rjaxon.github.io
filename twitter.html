@@ -98,6 +98,13 @@
             margin-right: 0px;
         }
 
+        .border-red-2 {
+            border: 2px solid red;
+        }
+
+        .border-green-2 {
+            border: 2px solid green;
+        }
     </style>
 
     <script type="text/javascript">
@@ -155,7 +162,7 @@
           function ux_addEntry(entry) {
               console.log('adding' + entry.id + ": " + entry.data);
 
-              var entry0 = $("<div class='entry'></div>");
+              var entry0 = $("<div class='entry' id='entry-" + entry.id + "'></div>");
 
               var con0 = $('<div class="text-right"></div>').html('<span>' + entry.data.length + '</span>/140 (500)');
               var con1 = $('<div class="entry-contents pad-bottom-10" id="entry-contents-' + entry.id + '"></div>').text(entry.data);
@@ -171,9 +178,30 @@
               $(".entries").prepend(entry0);
           }
 
+          function compareNumbers(a, b) {
+              return b - a;
+          }
+
           function save() {
               // delete entries first.
+
+              console.log(toDelete);
+              toDelete.sort(compareNumbers);
+              console.log(toDelete);
+
+              console.log(entries);
+              //for (var i = entries.length - 1; entries.length >= 0; i--) {
+                  for (j = 0; j < toDelete.length; j++) {
+                      entries.splice(toDelete[j], 1);
+                  }
+              //}
+                  console.log(entries);
+
+                  toDelete = [];
+
               localStorage.setItem('entries', JSON.stringify(entries));
+              $('#logo').removeClass('border-red-2');
+              $('#logo').addClass('border-green-2');
           }
 
           function onAddEntry(text) {
@@ -182,34 +210,50 @@
                   $('#input').val('');
                   $('#charNum').text('0');
                   entries.push(text);
+                  $('#logo').removeClass('border-green-2');
+                  $('#logo').addClass('border-red-2');
                   console.log(entries);
               }
           }
 
-          function add() {
-              console.log('add');
-          }
+          //function add() {
+          //    console.log('add');
+          //}
 
           function copy() {
               console.log('copy');
           }
 
           function edit(sender) {
-              console.log('edit');
+              //console.log('edit');
               console.log(sender);
               var id = sender.id;
               $('#input').val(entries[id]);
               $('#charNum').text(entries[id].length);
           }
 
-          function _delete() {
-              console.log('_delete');
+          function _delete(sender) {
+
+              var id = sender.id;
+              if (null == toDelete.find(function (element) { return id == element; })) {
+                  console.log('_delete');
+                  toDelete.push(id);
+                  ux_removeEntry(id);
+              }
           }
+
+          function ux_removeEntry(id) {
+              console.log('remove ' + id);
+              $('#entry-' + id).remove();
+              $('#logo').removeClass('border-green-2');
+              $('#logo').addClass('border-red-2');
+          }
+
 
           my.Load = pageLoad;
           my.Save = save;
           my.Entries = entries;
-          my.Add = add;
+          //my.Add = add;
           my.Copy = copy;
           my.Edit = edit;
           my.Delete = _delete;
@@ -239,7 +283,7 @@
 
         <div class="container">
             <header class="masthead clearfix">
-                <a href="#" class="site-avatar" id="Save" onclick="PAGE.Save(); return false;"><img src="https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/jekyll-logo.png" /></a>
+                <a href="#" class="site-avatar" id="Save" onclick="PAGE.Save(); return false;"><img id="logo" class="border-green-2" src="https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/jekyll-logo.png" /></a>
             </header>
         </div>
     </div>
