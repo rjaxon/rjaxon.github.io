@@ -185,10 +185,11 @@
 
           function ux_addEntry(entry) {
               console.log('adding' + entry.id + ": " + entry.data);
+              var wordCount = entry.data.replace(/\s+/g, ' ').split(' ').length;
 
               var entry0 = $("<div class='entry' id='entry-" + entry.id + "'></div>");
 
-              var con0 = $('<div class="text-right"></div>').html('<span>' + entry.data.length + '</span>/140 (' + MAX_INPUT + ')');
+              var con0 = $('<div class="text-right"></div>').html('<span>' + entry.data.length + '</span>/140 ' + wordCount + ' (' + MAX_INPUT + ')');// <!--span>☆ &#9734; ★ &#9733;</span-->');
               var con1 = $('<div class="entry-contents pad-bottom-10" id="entry-contents-' + entry.id + '"></div>').html(entry.data.replace(/\n/g, '<br/>'));
               var contents = $('<div></div>').append(con0, con1);
               entry0.append(contents);
