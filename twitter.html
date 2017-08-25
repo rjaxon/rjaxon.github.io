@@ -228,7 +228,7 @@
                   entries.push(text);
                   $('#logo').removeClass('border-green-2');
                   $('#logo').addClass('border-red-2');
-                  console.log(entries);
+                  $('#input').focus();
               }
           }
         
@@ -241,6 +241,7 @@
               var id = sender.id;
               $('#input').val(entries[id]);
               $('#charNum').text(entries[id].length);
+              $('#input').focus();
           }
 
           function _delete(sender) {
@@ -302,11 +303,11 @@
         <article class="page">
 
             <div>
+                <div class="text-right"><span id="charNum">0</span>/140 (<span id="maxInput">[N]</span>)</div>
                 <div>
                     <textarea id="input" onkeyup="countChar(this)" maxlength="500"></textarea>
                 </div>
                 <div class="pad-right-10 pad-left-10">
-                    <div class="text-right"><span id="charNum">0</span>/140 (<span id="maxInput">[N]</span>)</div>
                     <div>
                         <button class="btn btn-primary" id="add-entry" onclick="PAGE.Add();">Add</button>
                     </div>
