@@ -1,0 +1,52 @@
+
+
+<html>
+
+<head>
+    <title>flashcards</title>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<style>
+    body {
+        background: #ccc;
+    }
+    #card {
+        width: 90%;
+        border-radius: 0.5em;
+        padding: 1em;
+        font-family: cursive;
+        font-size: x-large;
+        border: 1px solid #666;
+    }
+
+    .front {
+        text-align: center;
+        background: #ffffff;
+    }
+
+    .back {
+        background: #ffffaa;
+    }
+
+    .ask {
+        background: #12df6e;
+        text-align: center;
+    }
+
+    .done {
+        background: #4ac8ee;
+        text-align: center;
+    }
+</style>
+<body>
+
+    Deck <span id="deck">0</span>
+    Correct <span id="right">0</span>
+    Wrong <span id="wrong">0</span>
+    <div id="card">
+    </div>
+</body>
+
+</html>
