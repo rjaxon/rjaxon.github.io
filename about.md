@@ -4,10 +4,12 @@ title: About
 permalink: /about/
 ---
 
-I am a software developer by trade and a programmer by night. 
+I am a programmer both day and night. 
 
 ### More Information
 
-I enjoy hacking window managers like dwm and the original wm and consider hacking code in DOS using dosbox time well spent.
+I enjoy hacking on window managers 
+like dwm and the original wm and 
+going old school by hacking in C, assembly.
 
-Twitter: @xxmrjaxx
+Mastodon: https://techhub.social/@rjaxon
