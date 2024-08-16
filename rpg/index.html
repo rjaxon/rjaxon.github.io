@@ -1,0 +1,350 @@
+<html>
+    <head>
+        <title>
+            RJ's RPG Tools
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.2.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    </head>
+<style>
+ body {
+     background: #ccc;
+ }
+
+ .hidden {
+     display:none;
+ }
+
+
+ .ui-item {
+    border: 5px solid black;
+    height: 4em;
+    text-align: center;
+    vertical-align: middle;
+    margin: 2%;
+    padding-top: 1em;
+    font-size: 3em;
+    font-weight: bold;
+    border-radius: 10px;
+ }
+
+ .absolute {
+     position: absolute;
+     top: 0px;
+ }
+
+ .red {
+     background: red;
+ }
+
+ .gray {
+     background: #aaa;
+ }
+
+ .gray-lt {
+     background: #ccc;
+ }
+
+</style>
+    <body>
+    
+        <div id="input" class="container">
+            <div class="row">
+                <div id="input-dice-type" onclick="input_click(this);" class="col-4"><div class="gray ui-item">20</div></div>
+                <div id="input-dice-roll"  onclick="input_click(this);" class="col-4"><div class="gray ui-item">Roll</div></div>
+                <div id="input-dice-count"  onclick="input_click(this);" class="col-4"><div class="gray ui-item">8</div></div>
+            </div>
+        </div>
+
+        <div id="panel-dicetype" class="gray-lt absolute hidden container">
+          <div class="row">
+            <div class="col-6"><div class="panel-dicetype-item gray ui-item">2</div></div>
+            <div class="col-6"><div class="panel-dicetype-item gray ui-item">8</div></div>
+          </div>
+          <div class="row">
+            <div class="col-6"><div class="panel-dicetype-item gray ui-item">10</div></div>
+            <div class="col-6"><div class="panel-dicetype-item gray ui-item">12</div></div>
+          </div>
+          <div class="row">
+            <div class="col-6"><div class="panel-dicetype-item gray selected ui-item">20</div></div>
+            <div class="col-6"><div class="panel-dicetype-item gray ui-item">100</div></div>
+          </div>
+          <div class="row" onclick="panel_close_click(this)">
+              <div class="col-12"><div class="gray ui-item">Close</div></div>
+          </div>
+        </div>
+
+        <div id="panel-dicecount" class="gray-lt absolute hidden container">
+          <div class="row">
+            <div class="col-6"><div class="panel-dicecount-item gray ui-item">1</div></div>
+            <div class="col-6"><div class="panel-dicecount-item gray ui-item">2</div></div>
+          </div>
+          <div class="row">
+            <div class="col-6"><div class="panel-dicecount-item gray ui-item">3</div></div>
+            <div class="col-6"><div class="panel-dicecount-item gray ui-item">4</div></div>
+          </div>
+          <div class="row">
+            <div class="col-6"><div class="panel-dicecount-item gray ui-item">5</div></div>
+            <div class="col-6"><div class="panel-dicecount-item gray ui-item">6</div></div>
+          </div>
+          <div class="row">
+            <div class="col-6"><div class="panel-dicecount-item gray ui-item">7</div></div>
+            <div class="col-6"><div class="panel-dicecount-item gray selected ui-item">8</div></div>
+          </div>
+          <div class="row" onclick="panel_close_click(this)">
+              <div class="col-12"><div class="gray ui-item">Close</div></div>
+          </div>
+        </div>
+
+        <div id="panel-contents" class="gray-lt absolute hidden container">
+          <div class="row">
+            <div class="col-6"><div class="content-item ui-item"> 1 of 2 </div></div>
+            <div class="col-6"><div class="content-item ui-item"> 2 of 2 </div></div>
+          </div>
+          <div class="row">
+            <div class="col-6"><div class="content-item ui-item"> 1 of 2 </div></div>
+            <div class="col-6"><div class="content-item ui-item"> 2 of 2 </div></div>
+          </div>
+          <div class="row">
+            <div class="col-6"><div class="content-item ui-item"> 1 of 2 </div></div>
+            <div class="col-6"><div class="content-item ui-item"> 2 of 2 </div></div>
+          </div>
+          <div class="row">
+            <div class="col-6"><div class="content-item ui-item"> 1 of 2 </div></div>
+            <div class="col-6"><div class="content-item ui-item"> 2 of 2 </div></div>
+          </div>
+          <div class="row" onclick="panel_close_click(this)">
+             <div class="col-12"><div class="gray ui-item">Close</div></div>
+          </div>
+        </div>
+
+    </body>
+
+
+        <script type="text/javascript">
+
+function input_click(sender) {
+
+    if(sender && sender.id === 'input-dice-count') {
+        $('#panel-dicecount').removeClass('hidden');
+        return;
+    }
+
+    if(sender && sender.id === 'input-dice-roll') {
+        $('#panel-contents').removeClass('hidden');
+        let count = $('#panel-dicecount').find('.selected').html();
+        let type  = $('#panel-dicetype').find('.selected').html();
+        let items = $('.content-item');
+        for(let i = 0; i < items.length; ++i)
+        {
+            $(items[i]).addClass('gray');
+            $(items[i]).removeClass('red');
+            let v = dice(type);
+            if(i + 1 <= count)
+            {
+              $(items[i]).addClass('red');
+              $(items[i]).removeClass('gray');
+                items[i].innerHTML = v;
+            }
+            else
+            {
+                items[i].innerHTML = '-';
+            }
+
+            // items[i].addEventListener("click", (sender) => {
+            //     content_item_click(sender);
+            // });
+        }
+        return;
+    }
+
+    if(sender && sender.id === 'input-dice-type') {
+        $('#panel-dicetype').removeClass('hidden');
+        return;
+    }
+}
+
+function panel_close_click(sender) {
+    $(sender).parent().addClass('hidden');
+}
+
+function dice(d)
+{
+    let _d = 6;
+    if(!isNaN(d))
+        _d = d;
+
+    return 1 + Math.floor(Math.random() * _d);
+}
+
+function on_load() 
+{
+    console.log("loading");
+
+    consume_parameters();
+
+    load_content();
+
+    let items = $('.content-item');
+    for(let i = 0; i < items.length; ++i)
+    {
+        items[i].addEventListener("click", (sender) => {
+            content_item_click(sender);
+        });
+    }
+
+    items = $('.panel-dicetype-item');
+    for(let i = 0; i < items.length; ++i)
+    {
+        items[i].addEventListener("click", (sender) => {
+            panel_dicetype_item_click(sender);
+        });
+    }
+
+    items = $('.panel-dicecount-item');
+    for(let i = 0; i < items.length; ++i)
+    {
+        items[i].addEventListener("click", (sender) => {
+            panel_dicecount_item_click(sender);
+        });
+    }
+}
+
+function content_item_make_all_used() {
+
+    let items = $('.content-item');
+    for(let i = 0; i < items.length; ++i)
+    {
+        $(items[i]).removeClass('red');
+        $(items[i]).addClass('gray');
+    }
+}
+
+function content_item_click(sender) {
+    content_item_make_all_used();
+
+    let type  = $('#panel-dicetype').find('.selected').html();
+    let item = sender.target;
+    item.innerHTML = dice(type);
+    $(item).removeClass('gray');
+    $(item).addClass('red');
+
+}
+
+function panel_dicetype_item_click(sender) {
+
+  let id = '#panel-dicetype';
+  let type = $(id).find('.selected');
+
+  type.removeClass('selected');
+
+  let selected = $(sender.target);
+  selected.addClass('selected');
+
+  $('#input-dice-type').find('.ui-item').html(selected.html());
+  
+  $(id).addClass('hidden');
+}
+
+function panel_dicecount_item_click(sender) {
+
+  let id = '#panel-dicecount';
+  let count = $(id).find('.selected');
+
+  count.removeClass('selected');
+
+  let selected = $(sender.target);
+  selected.addClass('selected');
+
+  $('#input-dice-count').find('.ui-item').html(selected.html());
+  
+  $(id).addClass('hidden');
+}
+
+function clear_content() {
+    let content = document.getElementById('content');
+    content.replaceChildren();
+}
+
+function load_content()
+{
+}
+
+function consume_parameters()
+{
+    let url_string = window.location.href;
+    let params = url_string.split('?')[1];
+    let query_string = new URLSearchParams(params);
+    
+    console.log(query_string);
+    for (let pair of query_string.entries()) {
+    }
+}
+
+function button_onclick(sender)
+{
+    clear_content();
+}
+
+function textbox_onkeypress(event)
+{
+    if(event && event.keyCode && event.keyCode == 13 /*Enter*/)
+    {
+        clear_content();
+        load_content(symbol_box().value);
+    }
+}
+
+function div_new(id, text)
+{
+    let div = document.createElement('div');
+
+    if(id)
+        div.id = id;
+
+    if(text)
+        div.innerHTML = text;
+
+    return div;
+}
+
+function link_new(url, text)
+{
+    let href = document.createElement('a');
+    href.href = url;
+    href.target = 'new';
+
+    if(text)
+        href.innerHTML = text;
+    else
+        href.innerHTML = url;
+
+    return href;
+}
+
+function format(input, replace)
+{
+    let string = input;
+    let tokens = [];
+    for(let i = 0; i < 10; ++i)
+    {
+        tokens.push('\\{' + i + '\\}');
+    }
+    
+    for (let i = 0; i < tokens.length; i++) {
+        if(replace.length < i)
+            break;
+
+        string = string.replace(new RegExp(tokens[i], "g"), replace[i]);
+    }
+
+    return string;
+}
+
+on_load();
+
+        </script>
+</html>
