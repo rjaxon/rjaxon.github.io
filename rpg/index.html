@@ -110,8 +110,9 @@
             <div class="col-6"><div class="content-item ui-item"> 1 of 2 </div></div>
             <div class="col-6"><div class="content-item ui-item"> 2 of 2 </div></div>
           </div>
-          <div class="row" onclick="panel_close_click(this)">
-             <div class="col-12"><div class="gray ui-item">Close</div></div>
+          <div class="row">
+             <div class="col-6" onclick="panel_sum_click(this)"   ><div id="panel-contents-sum" class="gray ui-item">=</div></div>
+             <div class="col-6" onclick="panel_close_click(this)" ><div class="gray ui-item">Close</div></div>
           </div>
         </div>
 
@@ -128,30 +129,7 @@ function input_click(sender) {
     }
 
     if(sender && sender.id === 'input-dice-roll') {
-        $('#panel-contents').removeClass('hidden');
-        let count = $('#panel-dicecount').find('.selected').html();
-        let type  = $('#panel-dicetype').find('.selected').html();
-        let items = $('.content-item');
-        for(let i = 0; i < items.length; ++i)
-        {
-            $(items[i]).addClass('gray');
-            $(items[i]).removeClass('red');
-            let v = dice(type);
-            if(i + 1 <= count)
-            {
-              $(items[i]).addClass('red');
-              $(items[i]).removeClass('gray');
-                items[i].innerHTML = v;
-            }
-            else
-            {
-                items[i].innerHTML = '-';
-            }
-
-            // items[i].addEventListener("click", (sender) => {
-            //     content_item_click(sender);
-            // });
-        }
+        roll_all();
         return;
     }
 
@@ -161,8 +139,45 @@ function input_click(sender) {
     }
 }
 
+function roll_all() {
+
+    $('#panel-contents').removeClass('hidden');
+    let count = $('#panel-dicecount').find('.selected').html();
+    let type  = $('#panel-dicetype').find('.selected').html();
+    let items = $('.content-item');
+    let sum = 0;
+    $('#panel-contents-sum').html('=');
+    for(let i = 0; i < items.length; ++i)
+    {
+        $(items[i]).removeClass('hidden');
+        $(items[i]).addClass('gray');
+        $(items[i]).removeClass('red');
+        let v = dice(type);
+        if(i + 1 <= count)
+        {
+          $(items[i]).addClass('red');
+          $(items[i]).removeClass('gray');
+          items[i].innerHTML = v;
+          sum += v;
+        }
+        else
+        {
+            $(items[i]).addClass('hidden');
+            items[i].innerHTML = '-';
+        }
+    }
+
+    $('#panel-contents-sum').html(sum);
+
+}
+
+function panel_sum_click(sender) {
+  roll_all();
+  calculate_sum();
+}
+
 function panel_close_click(sender) {
-    $(sender).parent().addClass('hidden');
+    $(sender).parent().parent().addClass('hidden');
 }
 
 function dice(d)
@@ -217,16 +232,42 @@ function content_item_make_all_used() {
     }
 }
 
+function calculate_sum() {
+
+    let count = $('#panel-dicecount').find('.selected').html();
+    let items = $('.content-item');
+    let sum = 0;
+    $('#panel-contents-sum').html('=');
+    for(let i = 0; i < items.length; ++i)
+    {
+        let v = Number(items[i].innerHTML);
+        if(i + 1 <= count)
+        {
+          sum += v;
+        }
+    }
+
+    $('#panel-contents-sum').html(sum);
+}
+
 function content_item_click(sender) {
+
+    if(sender.target.innerHTML === '-') {
+      return;
+    }
+
     content_item_make_all_used();
 
+    let count = $('#panel-dicecount').find('.selected').html();
     let type  = $('#panel-dicetype').find('.selected').html();
     let item = sender.target;
     item.innerHTML = dice(type);
     $(item).removeClass('gray');
     $(item).addClass('red');
 
+    calculate_sum();
 }
+
 
 function panel_dicetype_item_click(sender) {
 
