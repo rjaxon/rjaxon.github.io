@@ -541,6 +541,10 @@ function content_item_click(sender) {
       return;
     }
 
+    if(is_rory() ) {
+      return;
+    }
+
     content_item_make_all_used();
 
     let count = $('#panel-dicecount').find('.selected').html();
