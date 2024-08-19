@@ -415,7 +415,7 @@ function roll_all() {
         let v = dice(type);
 
         // remove story images
-        for(let r = 1; r <= 3; ++r) {
+        for(let r = 1; r <= 4; ++r) {
           $(items[i]).removeClass('rot' + r);
         }
 
@@ -432,7 +432,7 @@ function roll_all() {
             items[i].innerHTML = '';
             $(items[i]).removeClass('gray');
             $(items[i]).addClass('r' + (i+1) + v);
-            $(items[i]).addClass('rot' + dice(3) );
+            $(items[i]).addClass('rot' + dice(4) );
           }
           else {
             $(items[i]).addClass('red');
