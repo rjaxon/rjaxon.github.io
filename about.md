@@ -9,8 +9,10 @@ Programmer.
 
 ### More Information
 
-I enjoy hacking on window managers 
-like dwm and the original wm and 
-going old school by hacking in C, assembly.
+I often enjoy the hacking whenever the time allows
+
+- obscure window manages in linux like dwm and the original wm and 
+- hacking in C, assembly for various projects
+- random coding projects
 
 Mastodon: [https://techhub.social/@rjaxon](https://techhub.social/@rjaxon)
