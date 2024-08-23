@@ -5,7 +5,7 @@ permalink: /about/
 published: true
 ---
 
-I am a programmer both day and night. 
+Programmer.
 
 ### More Information
 
