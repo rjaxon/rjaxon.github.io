@@ -92,7 +92,7 @@ div {
     background-position: 0px -607px;
 }
 
-.keys {
+.buttons {
     div {
         background: orange;
         display: inline-block;
@@ -108,7 +108,11 @@ div {
 }
 
 .no-flats {
-    background-image: url('./caged-Cmaj-amin.png');
+    background-image: url('./caged-no-flats.png');
+}
+
+.pentatonic {
+    background-image: url('./caged-pentatonic.png');
 }
 
 </style>
@@ -123,6 +127,11 @@ div {
             <img src="./fretboard Natural.jpg" style="width: 987px" />
         </div>
 
+        <div class="buttons">
+            <div onclick="board_toggle_class('pentatonic')"> Pentatonic </div>
+            <div onclick="board_toggle_class('no-flats')"> Hide Flats </div>
+        </div>
+
         <div>
 
             <div class="board board-top">
@@ -133,7 +142,7 @@ div {
             </div>
         </div>
 
-        <div class="keys">
+        <div class="buttons keys">
             <div onclick="on_key_click('c')"> C </div>
             <div onclick="on_key_click('g')"> G </div>
             <div onclick="on_key_click('d')"> D </div>
@@ -147,7 +156,6 @@ div {
     <script type="text/javascript">
 
         function on_key_click(new_key) {
-            console.log(new_key);
             
             let keys = ['c', 'g', 'd', 'a', 'e', 'b'];
             let $board = $('#board');
@@ -160,6 +168,17 @@ div {
 
             $board.addClass('set-' + new_key);
             $scale.addClass('scale-' + new_key);
+        }
+
+        function board_toggle_class(css_class) {
+            let $board = $('#board');
+
+            if($board.hasClass(css_class)) {
+                $board.removeClass(css_class);
+            }
+            else {
+                $board.addClass(css_class);
+            }
         }
 
     </script>
