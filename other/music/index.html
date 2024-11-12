@@ -4,6 +4,8 @@
         <title>
             Music Notes
         </title>
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.2.min.js"></script>
     </head>
 
 <style>
@@ -47,6 +49,18 @@ div {
     background-position: -332px -70px;
 }
 
+.keys {
+    div {
+    background: orange;
+    display: flex;
+    width: 5em;
+    height: 5em;
+    margin: .25em;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    }
+}
+
 </style>
     <body>
 
@@ -63,12 +77,33 @@ div {
 
             <div class="board board-top">
             </div>
-            <div class="board board-main set-c">
+            <div id="board" class="board board-main set-c">
             </div>
             <div class="board board-bottom">
             </div>
         </div>
 
+        <div class="keys">
+            <div onclick="on_key_click('set-c')"> C </div>
+            <div onclick="on_key_click('set-g')"> G </div>
+        </div>
+
     </body>
 
+    <script type="text/javascript">
+
+        function on_key_click(new_key) {
+            console.log(new_key);
+            
+            let keys = ['c', 'g', 'd', 'a', 'e'];
+            let $board = $('#board');
+
+            keys.forEach(key => {
+                $board.removeClass('set-' + key);
+            });
+
+            $board.addClass(new_key);
+        }
+
+    </script>
 </html>
