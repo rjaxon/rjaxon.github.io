@@ -37,8 +37,11 @@ div {
 }
 
 .board-bottom{
-    height: 120px;
-    background-position: -210px -1046px;
+    height: 94px;
+    background-position: 0px 0px;
+    background-image: url('./scales-major.png');
+    background-repeat: repeat;
+    width: 915px;
 }
 
 .set-c {
@@ -51,6 +54,30 @@ div {
 
 .set-d {
     background-position: -664px -70px;
+}
+
+.set-a {
+    background-position: -198px -70px;
+}
+
+.set-e {
+    background-position: 269px -70px;
+}
+
+.scale-c {
+    background-position: 0px 0px;
+}
+
+.scale-g {
+    background-position: 0px -114px;
+}
+
+.scale-d {
+    background-position: 0px -225px;
+}
+
+.scale-a {
+    background-position: 0px -378px;
 }
 
 .keys {
@@ -83,14 +110,16 @@ div {
             </div>
             <div id="board" class="board board-main set-c">
             </div>
-            <div class="board board-bottom">
+            <div id="board-bottom" class="board board-bottom">
             </div>
         </div>
 
         <div class="keys">
-            <div onclick="on_key_click('set-c')"> C </div>
-            <div onclick="on_key_click('set-g')"> G </div>
-            <div onclick="on_key_click('set-d')"> D </div>
+            <div onclick="on_key_click('c')"> C </div>
+            <div onclick="on_key_click('g')"> G </div>
+            <div onclick="on_key_click('d')"> D </div>
+            <div onclick="on_key_click('a')"> A </div>
+            <div onclick="on_key_click('e')"> E </div>
         </div>
 
     </body>
@@ -102,12 +131,15 @@ div {
             
             let keys = ['c', 'g', 'd', 'a', 'e'];
             let $board = $('#board');
+            let $scale = $('#board-bottom');
 
             keys.forEach(key => {
                 $board.removeClass('set-' + key);
+                $scale.removeClass('scale-' + key);
             });
 
-            $board.addClass(new_key);
+            $board.addClass('set-' + new_key);
+            $scale.addClass('scale-' + new_key);
         }
 
     </script>
