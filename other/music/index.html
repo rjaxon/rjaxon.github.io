@@ -64,6 +64,10 @@ div {
     background-position: 269px -70px;
 }
 
+.set-b {
+    background-position: -65px -70px;
+}
+
 .scale-c {
     background-position: 0px 0px;
 }
@@ -84,14 +88,22 @@ div {
     background-position: 0px -494px;
 }
 
+.scale-b {
+    background-position: 0px -607px;
+}
+
 .keys {
     div {
-    background: orange;
-    display: inline-block;
-    width: 5em;
-    height: 5em;
-    margin: .25em;
-    border-radius: 10px;
+        background: orange;
+        display: inline-block;
+        margin: .25em;
+        width: 5em;
+        height: 5em;
+        max-width: 5em;
+        max-height: 5em;
+        border-radius: 10px;
+        font-weight: bold;
+        text-align: center;
     }
 }
 
@@ -123,6 +135,7 @@ div {
             <div onclick="on_key_click('d')"> D </div>
             <div onclick="on_key_click('a')"> A </div>
             <div onclick="on_key_click('e')"> E </div>
+            <div onclick="on_key_click('b')"> B </div>
         </div>
 
     </body>
@@ -132,7 +145,7 @@ div {
         function on_key_click(new_key) {
             console.log(new_key);
             
-            let keys = ['c', 'g', 'd', 'a', 'e'];
+            let keys = ['c', 'g', 'd', 'a', 'e', 'b'];
             let $board = $('#board');
             let $scale = $('#board-bottom');
 
