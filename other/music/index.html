@@ -94,6 +94,7 @@ div {
 
 .buttons {
     div {
+        cursor: pointer;
         background: orange;
         display: inline-block;
         margin: .25em;
@@ -115,6 +116,10 @@ div {
     background-image: url('./caged-pentatonic.png');
 }
 
+.minor {
+    background-image: url('./minor.png');
+}
+
 </style>
     <body>
 
@@ -130,6 +135,7 @@ div {
         <div class="buttons">
             <div onclick="board_toggle_class('pentatonic')"> Pentatonic </div>
             <div onclick="board_toggle_class('no-flats')"> Hide Flats </div>
+            <div onclick="board_toggle_class('minor')"> Minor </div>
         </div>
 
         <div>
