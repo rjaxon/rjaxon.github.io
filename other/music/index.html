@@ -145,16 +145,21 @@ div {
             <div id="board" class="board board-main set-c">
             </div>
             <div id="board-bottom" class="board board-bottom">
+                <!--pre>
+         1 - 2 - 3 4 - 5 - 6 - 7 1
+C Major  C . D . E F . G . A . B C
+
+                </pre-->
             </div>
         </div>
 
         <div class="buttons keys">
-            <div onclick="on_key_click('c')"> C </div>
-            <div onclick="on_key_click('g')"> G </div>
-            <div onclick="on_key_click('d')"> D </div>
-            <div onclick="on_key_click('a')"> A </div>
-            <div onclick="on_key_click('e')"> E </div>
-            <div onclick="on_key_click('b')"> B </div>
+            <div onclick="on_key_click('c')" minor="a"> C/a </div>
+            <div onclick="on_key_click('g')" minor="e"> G/e </div>
+            <div onclick="on_key_click('d')" minor="b"> D/b </div>
+            <div onclick="on_key_click('a')" minor="f_s"> A/f# </div>
+            <div onclick="on_key_click('e')" minor="c_s"> E/c# </div>
+            <div onclick="on_key_click('b')" minor="g_s"> B/g# </div>
         </div>
 
         <div>
