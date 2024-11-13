@@ -116,8 +116,16 @@ div {
     background-image: url('./caged-pentatonic.png');
 }
 
+.triads {
+    background-image: url('./triads.png');
+}
+
 .minor {
     background-image: url('./minor.png');
+}
+
+.hidden {
+  display: none;
 }
 
 </style>
@@ -125,16 +133,17 @@ div {
 
 
         <div>
-            <img src="./NOTES-Cmaj.png" style="width: 937px" />
+            <img src="./NOTES-Cmaj.png" style="width: 946px" />
         </div>
 
         <div>
-            <img src="./fretboard Natural.jpg" style="width: 987px" />
+            <img src="./fretboard Natural.jpg" style="width: 1003px" />
         </div>
 
         <div class="buttons">
-            <div onclick="board_toggle_class('pentatonic')"> Pentatonic </div>
             <div onclick="board_toggle_class('no-flats')"> Hide Flats </div>
+            <div onclick="board_toggle_class('pentatonic')"> Pentatonic </div>
+            <div onclick="board_toggle_class('triads')"> Triads </div>
             <div onclick="board_toggle_class('minor')"> Minor </div>
         </div>
 
@@ -145,11 +154,11 @@ div {
             <div id="board" class="board board-main set-c">
             </div>
             <div id="board-bottom" class="board board-bottom">
-                <!--pre>
+                <pre id="scale-text" class="hidden">
          1 - 2 - 3 4 - 5 - 6 - 7 1
 C Major  C . D . E F . G . A . B C
 
-                </pre-->
+                </pre>
             </div>
         </div>
 
@@ -176,6 +185,26 @@ C Major  C . D . E F . G . A . B C
     </body>
 
     <script type="text/javascript">
+
+        let keys = {
+'c': { "desc": `
+         1  -  2  -  3  4  -  5  -  6  -  7  1
+C Major  C  .  D  .  E  F  .  G  .  A  .  B  C
+         1  -  2  -  3  -  -  5  -  6  -  -  1 
+         C  .  D  .  E  .  .  G  .  A  .  .  C
+` },
+
+'g': { "desc": `
+         1  -  2  -  3  4  -  5  -  6  -  7  1
+G Major  G  .  A  .  B  C  .  D  .  E  .  F# G
+         1  -  2  -  3  -  -  5  -  6  -  -  1 
+         G  .  A  .  B  .  .  D  .  E  .  .  G
+`},
+'d': "",
+'a': "",
+'e': "",
+'b': ""
+};
 
         function on_key_click(new_key) {
             
