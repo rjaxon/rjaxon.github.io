@@ -232,5 +232,64 @@ G Major  G  .  A  .  B  C  .  D  .  E  .  F# G
             }
         }
 
+        function on_load() {
+          console.log('loading...');
+
+          let params = document.location.href.split('?'); //[1].split('=')
+
+          let args = null;
+
+          if(params.length > 1) {
+
+            args = {};
+
+            let paramlist = params[1].split('&');
+
+
+            for(let i = 0; i < paramlist.length; ++i) {
+              let current = paramlist[i];
+              let _arg = current.split('=');
+              let arg = _arg[0];
+              let val = _arg[1];
+
+              console.log(arg + ' = ' + val);
+
+              args[arg] = val;
+
+              // for(let j = 0; j < current; j += 2) {
+              //   let arg = paramlist[i];
+              //   let val = paramlist[i+1];
+
+              //   console.log(arg + ' = ' + val);
+              // }
+            }
+          }
+          console.log(args);
+
+
+          if(args) {
+            if(args.key && '_c_g_d_a_e_b_'.indexOf(args.key) > 0) {
+              on_key_click(args.key);
+            }
+
+            // these are exclusive so if more than one are in the url,
+            // then the first one found will be used and the others are ignored.
+            if(args['minor']) {
+              board_toggle_class('minor');
+            }
+            else if(args['triads']) {
+              board_toggle_class('triads');
+            }
+            else if(args['pentatonic']) {
+              board_toggle_class('pentatonic');
+            }
+            else if(args['no-flats']) {
+              board_toggle_class('no-flats');
+            }
+          }
+        }
+
+        $(document).ready(on_load);
+
     </script>
 </html>
