@@ -105,6 +105,18 @@ div {
         border-radius: 10px;
         font-weight: bold;
         text-align: center;
+
+    }
+
+    div.nowork {
+      cursor: default;
+      background: #CCC;
+    }
+
+    div.empty {
+      cursor: default;
+      background: white;
+        width: 5em;
     }
 }
 
@@ -167,27 +179,22 @@ C Major  C . D . E F . G . A . B C
             </div>
         </div>
 
-        <div class="buttons keys hidden">
+        <div class="buttons keys ">
             <div onclick="on_key_click('c')" minor="a"> C/a </div>
             <div onclick="on_key_click('g')" minor="e"> G/e </div>
             <div onclick="on_key_click('d')" minor="b"> D/b </div>
-            <div onclick="on_key_click('a')" minor="f_s"> A/f# </div>
-            <div onclick="on_key_click('e')" minor="c_s"> E/c# </div>
-            <div onclick="on_key_click('b')" minor="g_s"> B/g# </div>
+            <div onclick="on_key_click('a')" minor="f_s"> A/f&sharp; </div>
+            <div onclick="on_key_click('e')" minor="c_s"> E/c&sharp; </div>
+            <div onclick="on_key_click('b')" minor="g_s"> B/g&sharp; </div>
         </div>
-        <div>
-          <img src="./Circle of fifths.png" width="500" height="500" usemap="#fifthsmap"></img>
+        <div class="buttons keys ">
+          <div class="nowork"> F<span class="hidden">&natural;</span> </div>
+            <div class="nowork"> B&flat; </div>
+            <div class="nowork"> E&flat; </div>
+            <div class="nowork"> A&flat; </div>
+            <div class="nowork"> D&flat; </div>
+            <div class="nowork"> G&flat; </div>
         </div>
-
-        <map name="fifthsmap">
-          <area shape="rect" coords="234,50,261,77" onclick="on_key_click('c')" alt="C Major" >
-          <area shape="rect" coords="315,72,342,103" onclick="on_key_click('g')" alt="G Major" >
-          <area shape="rect" coords="379,133,404,162" onclick="on_key_click('d')" alt="D Major" >
-          <area shape="rect" coords="394,216,420,243" onclick="on_key_click('a')" alt="A Major" >
-          <area shape="rect" coords="377,295,403,322" onclick="on_key_click('e')" alt="E Major" >
-          <area shape="rect" coords="322,357,343,380" onclick="on_key_click('b')" alt="B Major" >
-        </map>
-
 
         <div>
             Drum Tracks from <a href="https://www.midnightdrummer.com/backing-drum-tracks/" target="_blank">midnightdrummer.com</a>
