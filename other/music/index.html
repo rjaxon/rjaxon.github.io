@@ -108,7 +108,7 @@ div {
 
     }
 
-    div.nowork {
+    div.disabled {
       cursor: default;
       background: #CCC;
     }
@@ -141,11 +141,11 @@ div {
 }
 
 .minor.pentatonic {
-    background-position: 0px -498px;
+    background-position-y: -498px;
 }
 
 .minor.triads {
-    background-position: 0px -911px;
+    background-position-y: -911px;
 }
 
 
@@ -176,30 +176,71 @@ div {
             </div>
             <div id="board" class="board board-main set-c">
             </div>
-            <div id="board-bottom" class="board board-bottom">
-                <pre id="scale-text" class="hidden">
-         1 - 2 - 3 4 - 5 - 6 - 7 1
-C Major  C . D . E F . G . A . B C
-
-                </pre>
+            <div id="board-bottom" class="board board-bottom hidden">
+            </div>
+            <div>
+                <table border=0 style="font-family: monospace; font-size: 30px; width: 950px; font-weight: bold; text-align: center;">
+                    <tr id="major_header"> <td>&nbsp;</td>
+                         <th> 1 </th>
+                         <th> - </th>
+                         <th> 2 </th>
+                         <th> - </th>
+                         <th> 3 </th>
+                         <th> 4 </th>
+                         <th> - </th>
+                         <th> 5 </th>
+                         <th> - </th>
+                         <th> 6 </th>
+                         <th> - </th>
+                         <th> 7 </th>
+                         <th> 1 </th> </tr>
+                    <tr id="minor_header" class="hidden"> <td>&nbsp;</td>
+                         <th> 1 </th>
+                         <th> - </th>
+                         <th> 2 </th>
+                         <th> 3 </th>
+                         <th> - </th>
+                         <th> 4 </th>
+                         <th> - </th>
+                         <th> 5 </th>
+                         <th> 6 </th>
+                         <th> - </th>
+                         <th> 7 </th>
+                         <th> - </th>
+                         <th> 1 </th> </tr>
+                    <tr> <td style="width: 180px;" id="sc-name">C Major</td>
+                         <td id="sc-1" > </td>
+                         <td id="sc-2" > </td>
+                         <td id="sc-3" > </td>
+                         <td id="sc-4" > </td>
+                         <td id="sc-5" > </td>
+                         <td id="sc-6" > </td>
+                         <td id="sc-7" > </td>
+                         <td id="sc-8" > </td>
+                         <td id="sc-9" > </td>
+                         <td id="sc-10"> </td>
+                         <td id="sc-11"> </td>
+                         <td id="sc-12"> </td>
+                         <td id="sc-13"> </td> </tr>
+                </table>
             </div>
         </div>
 
         <div class="buttons keys ">
-            <div onclick="on_key_click('c')" minor="a"> C/a </div>
-            <div onclick="on_key_click('g')" minor="e"> G/e </div>
-            <div onclick="on_key_click('d')" minor="b"> D/b </div>
-            <div onclick="on_key_click('a')" minor="f_s"> A/f&sharp; </div>
-            <div onclick="on_key_click('e')" minor="c_s"> E/c&sharp; </div>
-            <div onclick="on_key_click('b')" minor="g_s"> B/g&sharp; </div>
+            <div onclick="on_key_click('c', 'am')"  major="c" minor="am"> C/a </div>
+            <div onclick="on_key_click('g', 'em')"  major="g" minor="em"> G/e </div>
+            <div onclick="on_key_click('d', 'bm')"  major="d" minor="bm"> D/b </div>
+            <div onclick="on_key_click('a', 'fsm')" major="a" minor="fsm"> A/f&sharp; </div>
+            <div onclick="on_key_click('e', 'csm')" major="e" minor="csm"> E/c&sharp; </div>
+            <div onclick="on_key_click('b', 'gsm')" major="b" minor="gsm"> B/g&sharp; </div>
         </div>
         <div class="buttons keys ">
-          <div class="nowork"> F&natural;/d </div> <!-- natural used because of odd rendering -->
-            <div class="nowork"> B&flat;/g </div>
-            <div class="nowork"> E&flat;/c </div>
-            <div class="nowork"> A&flat;/f </div>
-            <div class="nowork"> D&flat;/b&flat; </div>
-            <div class="nowork"> G&flat;/e&flat; <!--span>(F&sharp;/d&sharp;)</span--> </div>
+          <div class="disabled"> F&natural;/d </div> <!-- natural used because of odd rendering -->
+            <div class="disabled"> B&flat;/g </div>
+            <div class="disabled"> E&flat;/c </div>
+            <div class="disabled"> A&flat;/f </div>
+            <div class="disabled"> D&flat;/b&flat; </div>
+            <div class="disabled"> G&flat;/e&flat; <!--span>(F&sharp;/d&sharp;)</span--> </div>
         </div>
 
         <div>
@@ -207,7 +248,7 @@ C Major  C . D . E F . G . A . B C
         </div>
 
         <div>
-            <audio controls loop>
+            <audio controls autoplay loop muted>
                   <source id="audio-player" src="./tracks/Basic-Shuffle-Groove-120-BPM.mp3" type="audio/mpeg" />
                   Your browser does not support the audio element.
             </audio>
@@ -217,39 +258,76 @@ C Major  C . D . E F . G . A . B C
 
     <script type="text/javascript">
 
-        let keys = {
-'c': { "desc": `
-         1  -  2  -  3  4  -  5  -  6  -  7  1
-C Major  C  .  D  .  E  F  .  G  .  A  .  B  C
-         1  -  2  -  3  -  -  5  -  6  -  -  1 
-         C  .  D  .  E  .  .  G  .  A  .  .  C
-` },
+let keys = { };
+keys.c   = 'C Major, C, D, E, F, G, A, B, C';
+keys.am  = 'a minor, A, B, C, D, E, F, G, A';
+keys.g   = 'G Major, G, A, B, C, D, E, F&sharp;, G';
+keys.em  = 'e minor, E, F&sharp;, G, A, B, C, D, E';
+keys.d   = 'D Major, D, E, F&sharp;, G, A, B, C&sharp;, D';
+keys.bm  = 'b minor, B, C&sharp;, D, E, F&sharp;, G, A, B';
+keys.a   = 'A Major, A, B, C&sharp;, D, E, F&sharp;, G&sharp;, A';
+keys.fsm = 'f&sharp; minor, F&sharp;, G&sharp;, A, B, C&sharp;, D, E, F&sharp;';
+keys.e   = 'E Major, E, F&sharp;, G&sharp;, A, B, C&sharp;, D&sharp;, E';
+keys.csm = 'c&sharp; minor, C&sharp;, D&sharp;, E, F&sharp;, G&sharp;, A, B, C&sharp;';
+keys.b   = 'B Major, B, C&sharp;, D&sharp;, E, F&sharp;, G&sharp;, A&sharp;, B';
+keys.gsm = 'g&sharp; minor, G&sharp;, A&sharp;, B, C&sharp;, D&sharp;, E, F&sharp;, G&sharp;';
 
-'g': { "desc": `
-         1  -  2  -  3  4  -  5  -  6  -  7  1
-G Major  G  .  A  .  B  C  .  D  .  E  .  F# G
-         1  -  2  -  3  -  -  5  -  6  -  -  1 
-         G  .  A  .  B  .  .  D  .  E  .  .  G
-`},
-'d': "",
-'a': "",
-'e': "",
-'b': ""
-};
-
-        function on_key_click(new_key) {
+        function on_key_click(major_key, minor_key) {
             
-            let keys = ['c', 'g', 'd', 'a', 'e', 'b'];
-            let $board = $('#board');
-            let $scale = $('#board-bottom');
+          let _keys = ['c', 'g', 'd', 'a', 'e', 'b'];
+          let $board = $('#board');
+          let $scale = $('#board-bottom');
 
-            keys.forEach(key => {
-                $board.removeClass('set-' + key);
-                $scale.removeClass('scale-' + key);
-            });
+          _keys.forEach(key => {
+              $board.removeClass('set-' + key);
+              $scale.removeClass('scale-' + key);
+          });
 
-            $board.addClass('set-' + new_key);
-            $scale.addClass('scale-' + new_key);
+          for(let i = 1; i <= 13; ++i) {
+              $('#sc-' + i ).html(''); 
+          }
+
+          $board.addClass('set-' + major_key);
+          $scale.addClass('scale-' + major_key);
+
+          let is_major = true;
+          if($board.hasClass('minor')) {
+            is_major = false;
+            $('#major_header').addClass('hidden');
+            $('#minor_header').removeClass('hidden');
+          }
+          else {
+            $('#major_header').removeClass('hidden');
+            $('#minor_header').addClass('hidden');
+          }
+
+          let _newkey = is_major ? major_key : minor_key;
+          if(keys[_newkey]) {
+            let k = keys[ _newkey ].split(', ');
+
+            $('#sc-name' ).html(k[0]); 
+
+            if(is_major) {
+              $('#sc-1' ).html(k[1]); 
+              $('#sc-3' ).html(k[2]); 
+              $('#sc-5' ).html(k[3]); 
+              $('#sc-6' ).html(k[4]); 
+              $('#sc-8' ).html(k[5]); 
+              $('#sc-10').html(k[6]); 
+              $('#sc-12').html(k[7]); 
+              $('#sc-13').html(k[8]); 
+            }
+            else {
+              $('#sc-1' ).html(k[1]); 
+              $('#sc-3' ).html(k[2]); 
+              $('#sc-4' ).html(k[3]); 
+              $('#sc-6' ).html(k[4]); 
+              $('#sc-8' ).html(k[5]); 
+              $('#sc-9' ).html(k[6]); 
+              $('#sc-11').html(k[7]); 
+              $('#sc-13').html(k[8]); 
+            }
+          }
         }
 
         function board_toggle_class(css_class) {
@@ -257,10 +335,17 @@ G Major  G  .  A  .  B  C  .  D  .  E  .  F# G
 
             if($board.hasClass(css_class)) {
                 $board.removeClass(css_class);
+                if(css_class === 'minor') {
+                  console.log('minor toggle off');
+                }
             }
             else {
                 $board.addClass(css_class);
+                if(css_class === 'minor') {
+                  console.log('minor toggle on');
+                }
             }
+
         }
 
         function on_load() {
@@ -289,9 +374,6 @@ G Major  G  .  A  .  B  C  .  D  .  E  .  F# G
 
 
           if(args) {
-            if(args.key && '_c_g_d_a_e_b_'.indexOf(args.key) > 0) {
-              on_key_click(args.key);
-            }
 
             if(args['minor']) {
               board_toggle_class('minor');
@@ -309,6 +391,15 @@ G Major  G  .  A  .  B  C  .  D  .  E  .  F# G
             else if(args['pentatonic']) {
               board_toggle_class('pentatonic');
             }
+
+
+            if(args.key && '_c_g_d_a_e_b_'.indexOf(args.key) > 0) {
+              on_key_click(args.key);
+            }
+            else {
+              on_key_click('c', 'am');
+            }
+
           }
         }
 
