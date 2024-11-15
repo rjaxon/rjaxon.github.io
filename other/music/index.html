@@ -140,9 +140,15 @@ div {
   display: none;
 }
 
-map {
-  cursor: pointer;
+.minor.pentatonic {
+    background-position: 0px -498px;
 }
+
+.minor.triads {
+    background-position: 0px -911px;
+}
+
+
 
 
 </style>
@@ -287,19 +293,21 @@ G Major  G  .  A  .  B  C  .  D  .  E  .  F# G
               on_key_click(args.key);
             }
 
-            // these are exclusive so if more than one are in the url,
-            // then the first one found will be used and the others are ignored.
             if(args['minor']) {
               board_toggle_class('minor');
             }
-            else if(args['triads']) {
+
+            if(args['no-flats']) {
+              board_toggle_class('no-flats');
+            }
+
+            // these are exclusive so if more than one are in the url,
+            // then the first one found will be used and the others are ignored.
+            if(args['triads']) {
               board_toggle_class('triads');
             }
             else if(args['pentatonic']) {
               board_toggle_class('pentatonic');
-            }
-            else if(args['no-flats']) {
-              board_toggle_class('no-flats');
             }
           }
         }
