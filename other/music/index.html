@@ -6,6 +6,9 @@
         </title>
 
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.2.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+  
     </head>
 
 <style>
@@ -247,11 +250,15 @@ div {
             Drum Tracks from <a href="https://www.midnightdrummer.com/backing-drum-tracks/" target="_blank">midnightdrummer.com</a>
         </div>
 
-        <div>
+        <!--div>
             <audio controls loop >
                   <source id="audio-player" src="./tracks/Basic-Shuffle-Groove-120-BPM.mp3" type="audio/mpeg" />
                   Your browser does not support the audio element.
             </audio>
+        </div-->
+
+        <div class="buttons">
+          <div id="audio" onclick="play_track();">PLAY</div>
         </div>
 
     </body>
@@ -393,14 +400,44 @@ keys.gsm = 'g&sharp; minor, G&sharp;, A&sharp;, B, C&sharp;, D&sharp;, E, F&shar
             }
 
 
-            if(args.key && '_c_g_d_a_e_b_'.indexOf(args.key) > 0) {
-              on_key_click(args.key);
+            let accepted_major  = '_c_g_d_a_e_b_';
+            let accepted_minor = '_am_em_bm_fsm_csm_gsm_';
+
+            if(args.key) {
+              if(accepted_major.indexOf('_' + args.key + '_') > 0) {
+                on_key_click(args.key, 'am');
+              }
+              else if(accepted_minor.indexOf('_' + args.key + '_') > 0) {
+                on_key_click('c', args.key);
+              }
             }
             else {
               on_key_click('c', 'am');
             }
 
           }
+
+        }
+
+        let sound = null;
+        function play_track() {
+            if(sound == null) {
+                sound = new Howl({
+                  src: ['./tracks/Basic-Shuffle-Groove-120-BPM.mp3'],
+                  loop: true
+                });
+            }
+
+          let $audio = $('#audio');
+          if($audio.html().trim() == 'PLAY') {
+            sound.play();
+            $audio.html('STOP');
+          }
+          else if($audio.html().trim() == 'STOP') {
+            sound.stop();
+            $audio.html('PLAY');
+          }
+          
         }
 
         $(document).ready(on_load);
