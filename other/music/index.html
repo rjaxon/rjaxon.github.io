@@ -78,8 +78,23 @@ div {
 .set-bf {
     background-position: -133px -70px;
 }
+
 .set-ef {
     background-position: 202px -70px;
+}
+
+
+.set-af {
+    background-position: -265px -70px;
+}
+
+
+.set-df {
+    background-position: -733px -70px;
+}
+
+.set-gf {
+    background-position: -397px -70px;
 }
 
 .scale-c {
@@ -252,9 +267,9 @@ div {
             <div onclick="on_key_click('f', 'dm')"  major="f" minor="dm" > F&natural; / d </div><!-- natural used because of odd rendering -->
             <div onclick="on_key_click('bf', 'gm')"  major="bf" minor="gm" > B&flat; / g </div>
             <div onclick="on_key_click('ef', 'cm')"  major="ef" minor="cm" > E&flat; / c </div>
-            <div class="disabled"> A&flat; / f </div>
-            <div class="disabled"> D&flat; / b&flat; </div>
-            <div class="disabled"> G&flat; / e&flat; </div>
+            <div onclick="on_key_click('af', 'fm')"   major="af" minor="fm" > A&flat; / f </div>
+            <div onclick="on_key_click('df', 'bfm')"  major="df" minor="bfm" > D&flat; / b&flat; </div>
+            <div onclick="on_key_click('gf', 'efm')"  major="gf" minor="efm" > G&flat; / e&flat; </div>
         </div>
 
         <div>
@@ -296,9 +311,19 @@ keys.gm  = 'g minor, G, A, B&flat;, C, D, E&flat;, F, G';
 keys.ef  = 'E&flat; Major, E&flat;, F, G, A&flat;, B&flat;, C, D, E&flat;';
 keys.cm  = 'c minor, C, D, E&flat;, F, G, A&flat;, B&flat;, C';
 
+keys.af  = 'A&flat; Major, A&flat;, B&flat;, C, D&flat;, E&flat;, F, G, A&flat;';
+keys.fm  = 'f minor, F, G, A&flat;, B&flat;, C, D&flat;, E&flat;, F';
+
+keys.df  = 'D&flat; Major, D&flat;, E&flat;, F, G&flat;, A&flat;, B&flat;, C, D&flat;';
+keys.bfm = 'b&flat; minor, B&flat;, C, D&flat;, E&flat;, F, G&flat;, A&flat;, B&flat;';
+
+keys.gf  = 'G&flat; Major, G&flat;, A&flat;, B&flat;, C&flat;, D&flat;, E&flat;, F, G&flat;';
+keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&flat;, E&flat;';
+
         function on_key_click(major_key, minor_key) {
             
-          let _keys = ['c', 'g', 'd', 'a', 'e', 'b', 'f', 'bf', 'ef'];
+          let _keys = ['c', 'g', 'd', 'a', 'e', 'b', 'f',
+                       'bf', 'ef', 'af', 'df', 'gf'];
           let $board = $('#board');
           let $scale = $('#board-bottom');
 
@@ -417,8 +442,8 @@ keys.cm  = 'c minor, C, D, E&flat;, F, G, A&flat;, B&flat;, C';
             }
 
 
-            let accepted_major  = '_c_g_d_a_e_b_f_bf_ef_';
-            let accepted_minor = '_am_em_bm_fsm_csm_gsm_dm_gm_cm_';
+            let accepted_major  = '_c_g_d_a_e_b_f_bf_ef_af_df_gf_';
+            let accepted_minor = '_am_em_bm_fsm_csm_gsm_dm_gm_cm_fm_bfm_efm_';
 
             if(args.key) {
               if(accepted_major.indexOf('_' + args.key + '_') > 0) {
