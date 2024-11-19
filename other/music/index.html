@@ -71,6 +71,17 @@ div {
     background-position: -65px -70px;
 }
 
+.set-f {
+    background-position: -465px -70px;
+}
+
+.set-bf {
+    background-position: -133px -70px;
+}
+.set-ef {
+    background-position: 202px -70px;
+}
+
 .scale-c {
     background-position: 0px 0px;
 }
@@ -230,20 +241,20 @@ div {
         </div>
 
         <div class="buttons keys ">
-            <div onclick="on_key_click('c', 'am')"  major="c" minor="am"> C/a </div>
-            <div onclick="on_key_click('g', 'em')"  major="g" minor="em"> G/e </div>
-            <div onclick="on_key_click('d', 'bm')"  major="d" minor="bm"> D/b </div>
-            <div onclick="on_key_click('a', 'fsm')" major="a" minor="fsm"> A/f&sharp; </div>
-            <div onclick="on_key_click('e', 'csm')" major="e" minor="csm"> E/c&sharp; </div>
-            <div onclick="on_key_click('b', 'gsm')" major="b" minor="gsm"> B/g&sharp; </div>
+            <div onclick="on_key_click('c', 'am')"  major="c" minor="am" > C / a </div>
+            <div onclick="on_key_click('g', 'em')"  major="g" minor="em" > G / e </div>
+            <div onclick="on_key_click('d', 'bm')"  major="d" minor="bm" > D / b </div>
+            <div onclick="on_key_click('a', 'fsm')" major="a" minor="fsm"> A / f&sharp; </div>
+            <div onclick="on_key_click('e', 'csm')" major="e" minor="csm"> E / c&sharp; </div>
+            <div onclick="on_key_click('b', 'gsm')" major="b" minor="gsm"> B / g&sharp; </div>
         </div>
         <div class="buttons keys ">
-          <div class="disabled"> F&natural;/d </div> <!-- natural used because of odd rendering -->
-            <div class="disabled"> B&flat;/g </div>
-            <div class="disabled"> E&flat;/c </div>
-            <div class="disabled"> A&flat;/f </div>
-            <div class="disabled"> D&flat;/b&flat; </div>
-            <div class="disabled"> G&flat;/e&flat; <!--span>(F&sharp;/d&sharp;)</span--> </div>
+            <div onclick="on_key_click('f', 'dm')"  major="f" minor="dm" > F&natural; / d </div><!-- natural used because of odd rendering -->
+            <div onclick="on_key_click('bf', 'gm')"  major="bf" minor="gm" > B&flat; / g </div>
+            <div onclick="on_key_click('ef', 'cm')"  major="ef" minor="cm" > E&flat; / c </div>
+            <div class="disabled"> A&flat; / f </div>
+            <div class="disabled"> D&flat; / b&flat; </div>
+            <div class="disabled"> G&flat; / e&flat; </div>
         </div>
 
         <div>
@@ -278,10 +289,16 @@ keys.e   = 'E Major, E, F&sharp;, G&sharp;, A, B, C&sharp;, D&sharp;, E';
 keys.csm = 'c&sharp; minor, C&sharp;, D&sharp;, E, F&sharp;, G&sharp;, A, B, C&sharp;';
 keys.b   = 'B Major, B, C&sharp;, D&sharp;, E, F&sharp;, G&sharp;, A&sharp;, B';
 keys.gsm = 'g&sharp; minor, G&sharp;, A&sharp;, B, C&sharp;, D&sharp;, E, F&sharp;, G&sharp;';
+keys.f   = 'F Major, F, G, A, B&flat;, C, D, E, F';
+keys.dm  = 'd minor, D, E, F, G, A, B&flat;, C, D';
+keys.bf  = 'B&flat; Major, B&flat;, C, D, E&flat;, F, G, A, B&flat;';
+keys.gm  = 'g minor, G, A, B&flat;, C, D, E&flat;, F, G';
+keys.ef  = 'E&flat; Major, E&flat;, F, G, A&flat;, B&flat;, C, D, E&flat;';
+keys.cm  = 'c minor, C, D, E&flat;, F, G, A&flat;, B&flat;, C';
 
         function on_key_click(major_key, minor_key) {
             
-          let _keys = ['c', 'g', 'd', 'a', 'e', 'b'];
+          let _keys = ['c', 'g', 'd', 'a', 'e', 'b', 'f', 'bf', 'ef'];
           let $board = $('#board');
           let $scale = $('#board-bottom');
 
@@ -400,8 +417,8 @@ keys.gsm = 'g&sharp; minor, G&sharp;, A&sharp;, B, C&sharp;, D&sharp;, E, F&shar
             }
 
 
-            let accepted_major  = '_c_g_d_a_e_b_';
-            let accepted_minor = '_am_em_bm_fsm_csm_gsm_';
+            let accepted_major  = '_c_g_d_a_e_b_f_bf_ef_';
+            let accepted_minor = '_am_em_bm_fsm_csm_gsm_dm_gm_cm_';
 
             if(args.key) {
               if(accepted_major.indexOf('_' + args.key + '_') > 0) {
