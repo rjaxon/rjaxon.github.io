@@ -177,6 +177,13 @@ div {
     background-position-y: -911px;
 }
 
+.selected {
+    background: #f4e519 !important;
+}
+
+.red {
+    color: red;
+}
 
 
 
@@ -227,7 +234,7 @@ div {
                          <th> 1 </th>
                          <th> - </th>
                          <th> 2 </th>
-                         <th> 3 </th>
+                         <th> &flat;3 </th>
                          <th> - </th>
                          <th> 4 </th>
                          <th> - </th>
@@ -238,14 +245,14 @@ div {
                          <th> - </th>
                          <th> 1 </th> </tr>
                     <tr> <td style="width: 180px;" id="sc-name">C Major</td>
-                         <td id="sc-1" > </td>
+                         <td id="sc-1" class="red" > </td>
                          <td id="sc-2" > </td>
                          <td id="sc-3" > </td>
-                         <td id="sc-4" > </td>
-                         <td id="sc-5" > </td>
+                         <td id="sc-4" class="red" > </td>
+                         <td id="sc-5" class="red" > </td>
                          <td id="sc-6" > </td>
                          <td id="sc-7" > </td>
-                         <td id="sc-8" > </td>
+                         <td id="sc-8" class="red" > </td>
                          <td id="sc-9" > </td>
                          <td id="sc-10"> </td>
                          <td id="sc-11"> </td>
@@ -256,20 +263,20 @@ div {
         </div>
 
         <div class="buttons keys ">
-            <div onclick="on_key_click('c', 'am')"  major="c" minor="am" > C / a </div>
-            <div onclick="on_key_click('g', 'em')"  major="g" minor="em" > G / e </div>
-            <div onclick="on_key_click('d', 'bm')"  major="d" minor="bm" > D / b </div>
-            <div onclick="on_key_click('a', 'fsm')" major="a" minor="fsm"> A / f&sharp; </div>
-            <div onclick="on_key_click('e', 'csm')" major="e" minor="csm"> E / c&sharp; </div>
-            <div onclick="on_key_click('b', 'gsm')" major="b" minor="gsm"> B / g&sharp; </div>
+            <div onclick="on_key_click('c', 'am', this)"  major="c" minor="am" > C / a </div>
+            <div onclick="on_key_click('g', 'em', this)"  major="g" minor="em" > G / e </div>
+            <div onclick="on_key_click('d', 'bm', this)"  major="d" minor="bm" > D / b </div>
+            <div onclick="on_key_click('a', 'fsm', this)" major="a" minor="fsm"> A / f&sharp; </div>
+            <div onclick="on_key_click('e', 'csm', this)" major="e" minor="csm"> E / c&sharp; </div>
+            <div onclick="on_key_click('b', 'gsm', this)" major="b" minor="gsm"> B / g&sharp; </div>
         </div>
         <div class="buttons keys ">
-            <div onclick="on_key_click('f', 'dm')"  major="f" minor="dm" > F&natural; / d </div><!-- natural used because of odd rendering -->
-            <div onclick="on_key_click('bf', 'gm')"  major="bf" minor="gm" > B&flat; / g </div>
-            <div onclick="on_key_click('ef', 'cm')"  major="ef" minor="cm" > E&flat; / c </div>
-            <div onclick="on_key_click('af', 'fm')"   major="af" minor="fm" > A&flat; / f </div>
-            <div onclick="on_key_click('df', 'bfm')"  major="df" minor="bfm" > D&flat; / b&flat; </div>
-            <div onclick="on_key_click('gf', 'efm')"  major="gf" minor="efm" > G&flat; / e&flat; </div>
+            <div onclick="on_key_click('f', 'dm', this)"  major="f" minor="dm" > F&natural; / d </div><!-- natural used because of odd rendering -->
+            <div onclick="on_key_click('bf', 'gm', this)"  major="bf" minor="gm" > B&flat; / g </div>
+            <div onclick="on_key_click('ef', 'cm', this)"  major="ef" minor="cm" > E&flat; / c </div>
+            <div onclick="on_key_click('af', 'fm', this)"   major="af" minor="fm" > A&flat; / f </div>
+            <div onclick="on_key_click('df', 'bfm', this)"  major="df" minor="bfm" > D&flat; / b&flat; </div>
+            <div onclick="on_key_click('gf', 'efm', this)"  major="gf" minor="efm" > G&flat; / e&flat; </div>
         </div>
 
         <div>
@@ -320,7 +327,7 @@ keys.bfm = 'b&flat; minor, B&flat;, C, D&flat;, E&flat;, F, G&flat;, A&flat;, B&
 keys.gf  = 'G&flat; Major, G&flat;, A&flat;, B&flat;, C&flat;, D&flat;, E&flat;, F, G&flat;';
 keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&flat;, E&flat;';
 
-        function on_key_click(major_key, minor_key) {
+        function on_key_click(major_key, minor_key, sender) {
             
           let _keys = ['c', 'g', 'd', 'a', 'e', 'b', 'f',
                        'bf', 'ef', 'af', 'df', 'gf'];
@@ -377,6 +384,10 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
               $('#sc-13').html(k[8]); 
             }
           }
+
+          let $selected = $('.selected');
+          $selected.removeClass('selected');
+          $(sender).addClass('selected');
         }
 
         function board_toggle_class(css_class) {
@@ -445,12 +456,17 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
             let accepted_major  = '_c_g_d_a_e_b_f_bf_ef_af_df_gf_';
             let accepted_minor = '_am_em_bm_fsm_csm_gsm_dm_gm_cm_fm_bfm_efm_';
 
+
             if(args.key) {
               if(accepted_major.indexOf('_' + args.key + '_') > 0) {
-                on_key_click(args.key, 'am');
+                $button = $('[major="' + args.key + '"]');
+                // on_key_click(args.key, 'am');
+                on_key_click($button.attr('major'), $button.attr('minor'), $button[0]);
               }
               else if(accepted_minor.indexOf('_' + args.key + '_') > 0) {
-                on_key_click('c', args.key);
+                $button = $('[minor="' + args.key + '"]');
+                // on_key_click('c', args.key);
+                on_key_click($button.attr('major'), $button.attr('minor'), $button[0]);
               }
             }
             else {
