@@ -177,6 +177,10 @@ div {
     background-position-y: -911px;
 }
 
+.on {
+    background: #f4e519 !important;
+}
+
 .selected {
     background: #f4e519 !important;
 }
@@ -184,6 +188,7 @@ div {
 .red {
     color: red;
 }
+
 
 
 
@@ -200,10 +205,10 @@ div {
         </div>
 
         <div class="buttons">
-            <div onclick="board_toggle_class('no-flats')"> Hide Flats </div>
-            <div onclick="board_toggle_class('pentatonic')"> Pentatonic </div>
-            <div onclick="board_toggle_class('triads')"> Triads </div>
-            <div onclick="board_toggle_class('minor')"> Minor </div>
+            <div id="btn-no-flats" onclick="board_toggle_class('no-flats', this)"> Hide Flats </div>
+            <div id="btn-pentatonic" onclick="board_toggle_class('pentatonic', this)"> Pentatonic </div>
+            <div id="btn-triads" onclick="board_toggle_class('triads', this)"> Triads </div>
+            <div id="btn-minor" onclick="board_toggle_class('minor', this)"> Minor </div>
         </div>
 
         <div>
@@ -390,8 +395,18 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
           $(sender).addClass('selected');
         }
 
-        function board_toggle_class(css_class) {
+        function board_toggle_class(css_class, sender) {
             let $board = $('#board');
+
+            if(sender) {
+                let $s = $(sender);
+                if($s.hasClass('on') ) {
+                    $s.removeClass('on');
+                }
+                else {
+                    $s.addClass('on');
+                }
+            }
 
             if($board.hasClass(css_class)) {
                 $board.removeClass(css_class);
@@ -436,19 +451,27 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
           if(args) {
 
             if(args['minor']) {
+              let $btn = $('#btn-minor');
+              $btn.addClass('on');
               board_toggle_class('minor');
             }
 
             if(args['no-flats']) {
+              let $btn = $('#btn-no-flats');
+              $btn.addClass('on');
               board_toggle_class('no-flats');
             }
 
             // these are exclusive so if more than one are in the url,
             // then the first one found will be used and the others are ignored.
             if(args['triads']) {
+              let $btn = $('#btn-triads');
+              $btn.addClass('on');
               board_toggle_class('triads');
             }
             else if(args['pentatonic']) {
+              let $btn = $('#btn-pentatonic');
+              $btn.addClass('on');
               board_toggle_class('pentatonic');
             }
 
