@@ -21,6 +21,67 @@ div {
     padding: 1em;
 }
 
+#notes {
+
+    padding: 0em;
+    width: 946px;
+    height: 478px;
+
+    background-image: url('./NOTES-Cmaj-2.png');
+    background-repeat: no-repeat;
+}
+
+.note {
+    padding: 0em;
+    width: 40px;
+    height: 60px;
+    position: absolute;
+    background-image: url('./NOTES-Cmaj-2.png');
+    background-repeat: no-repeat;
+}
+
+.note-none {
+    background-position: -152px -109px;
+}
+
+.note-e {
+    background-position: -10px -40px;
+}
+.note-f {
+    background-position: -79px -40px;
+}
+
+.flat {
+    padding: 0em;
+    width: 15px;
+    height: 20px;
+    position: relative;
+    background-image: url('./NOTES-Cmaj-2.png');
+    background-repeat: no-repeat;
+    background-position: -27px -490px;
+}
+
+.sharp {
+    padding: 0em;
+    width: 15px;
+    height: 20px;
+    position: relative;
+    background-image: url('./NOTES-Cmaj-2.png');
+    background-repeat: no-repeat;
+    background-position: -5px -490px;
+}
+
+.natural {
+    padding: 0em;
+    width: 15px;
+    height: 20px;
+    position: relative;
+    background-image: url('./NOTES-Cmaj-2.png');
+    background-repeat: no-repeat;
+    background-position: -47px -490px;
+}
+
+
 .board {
     padding: 0em;
     width: 1000px;
@@ -189,15 +250,24 @@ div {
     color: red;
 }
 
-
+.lt-gray {
+    color: #ccc;
+}
 
 
 </style>
     <body>
 
 
+        <!-- THE NOTES DIAGRAM MUST BE FIRST. It uses absolute positioning -->
+
         <div>
-            <img src="./NOTES-Cmaj.png" style="width: 946px" />
+            <!--img src="./NOTES-Cmaj.png" style="width: 946px" /-->
+            <div id="notes">
+                <div class="note note-none hidden" style="left: 108px; top: 64px;" ></div>
+                <div class="note note-f" style="left: 178px; top: 64px;" ></div>
+                <div class="sharp" style="left: 144px; top: 46px;" ></div>
+            </div>
         </div>
 
         <div>
@@ -522,6 +592,10 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
         }
 
         $(document).ready(on_load);
+
+let note_data = {E: {}, A: {}, G: {}, B: {}, e: {}};
+
+note_data.e.f = { };
 
     </script>
 </html>
