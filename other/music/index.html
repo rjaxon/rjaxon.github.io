@@ -23,6 +23,9 @@ div {
 
 #notes {
 
+/* relative necessary because child .note
+   use absolute positioning */
+    position: relative;
     padding: 0em;
     width: 946px;
     height: 478px;
@@ -158,30 +161,6 @@ div {
     background-position: -397px -70px;
 }
 
-.scale-c {
-    background-position: 0px 0px;
-}
-
-.scale-g {
-    background-position: 0px -114px;
-}
-
-.scale-d {
-    background-position: 0px -228px;
-}
-
-.scale-a {
-    background-position: 0px -380px;
-}
-
-.scale-e {
-    background-position: 0px -494px;
-}
-
-.scale-b {
-    background-position: 0px -608px;
-}
-
 .buttons {
     div {
         cursor: pointer;
@@ -246,6 +225,10 @@ div {
     background: #f4e519 !important;
 }
 
+.selected-as-minor {
+    background: #75cf3f !important;
+}
+
 .red {
     color: red;
 }
@@ -258,14 +241,10 @@ div {
 </style>
     <body>
 
-
-        <!-- THE NOTES DIAGRAM MUST BE FIRST. It uses absolute positioning -->
-
         <div>
-            <!--img src="./NOTES-Cmaj.png" style="width: 946px" /-->
             <div id="notes">
                 <div class="note note-none hidden" style="left: 108px; top: 64px;" ></div>
-                <div class="note note-f" style="left: 178px; top: 64px;" ></div>
+                <div class="note note-f" style="left: 152px; top: 40px;" ></div>
                 <div class="sharp" style="left: 144px; top: 46px;" ></div>
             </div>
         </div>
@@ -273,6 +252,8 @@ div {
         <div>
             <img src="./fretboard Natural.jpg" style="width: 1003px" />
         </div>
+
+
 
         <div class="buttons">
             <div id="btn-no-flats" onclick="board_toggle_class('no-flats', this)"> Hide Flats </div>
@@ -338,20 +319,20 @@ div {
         </div>
 
         <div class="buttons keys ">
-            <div onclick="on_key_click('c', 'am', this)"  major="c" minor="am" > C / a </div>
-            <div onclick="on_key_click('g', 'em', this)"  major="g" minor="em" > G / e </div>
-            <div onclick="on_key_click('d', 'bm', this)"  major="d" minor="bm" > D / b </div>
-            <div onclick="on_key_click('a', 'fsm', this)" major="a" minor="fsm"> A / f&sharp; </div>
-            <div onclick="on_key_click('e', 'csm', this)" major="e" minor="csm"> E / c&sharp; </div>
-            <div onclick="on_key_click('b', 'gsm', this)" major="b" minor="gsm"> B / g&sharp; </div>
+            <div id="btn-c" onclick="on_key_click('c', 'am', this)"  major="c" minor="am" > C / a </div>
+            <div id="btn-g" onclick="on_key_click('g', 'em', this)"  major="g" minor="em" > G / e </div>
+            <div id="btn-d" onclick="on_key_click('d', 'bm', this)"  major="d" minor="bm" > D / b </div>
+            <div id="btn-a" onclick="on_key_click('a', 'fsm', this)" major="a" minor="fsm"> A / f&sharp; </div>
+            <div id="btn-e" onclick="on_key_click('e', 'csm', this)" major="e" minor="csm"> E / c&sharp; </div>
+            <div id="btn-b" onclick="on_key_click('b', 'gsm', this)" major="b" minor="gsm"> B / g&sharp; </div>
         </div>
         <div class="buttons keys ">
-            <div onclick="on_key_click('f', 'dm', this)"  major="f" minor="dm" > F&natural; / d </div><!-- natural used because of odd rendering -->
-            <div onclick="on_key_click('bf', 'gm', this)"  major="bf" minor="gm" > B&flat; / g </div>
-            <div onclick="on_key_click('ef', 'cm', this)"  major="ef" minor="cm" > E&flat; / c </div>
-            <div onclick="on_key_click('af', 'fm', this)"   major="af" minor="fm" > A&flat; / f </div>
-            <div onclick="on_key_click('df', 'bfm', this)"  major="df" minor="bfm" > D&flat; / b&flat; </div>
-            <div onclick="on_key_click('gf', 'efm', this)"  major="gf" minor="efm" > G&flat; / e&flat; </div>
+            <div id="btn-f"  onclick="on_key_click('f', 'dm', this)"  major="f" minor="dm" > F&natural; / d </div><!-- natural used because of odd rendering -->
+            <div id="btn-bf" onclick="on_key_click('bf', 'gm', this)"  major="bf" minor="gm" > B&flat; / g </div>
+            <div id="btn-ef" onclick="on_key_click('ef', 'cm', this)"  major="ef" minor="cm" > E&flat; / c </div>
+            <div id="btn-af" onclick="on_key_click('af', 'fm', this)"   major="af" minor="fm" > A&flat; / f </div>
+            <div id="btn-df" onclick="on_key_click('df', 'bfm', this)"  major="df" minor="bfm" > D&flat; / b&flat; </div>
+            <div id="btn-gf" onclick="on_key_click('gf', 'efm', this)"  major="gf" minor="efm" > G&flat; / e&flat; </div>
         </div>
 
         <div>
@@ -408,6 +389,8 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
                        'bf', 'ef', 'af', 'df', 'gf'];
           let $board = $('#board');
           let $scale = $('#board-bottom');
+          $s = $(sender);
+
 
           _keys.forEach(key => {
               $board.removeClass('set-' + key);
@@ -418,11 +401,38 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
               $('#sc-' + i ).html(''); 
           }
 
+          let $minor = $('#btn-minor');
+          let $selected = $('.selected');
+          let was_minor = $selected.hasClass('selected-as-minor');
+          $selected.removeClass('selected-as-minor');
+          $selected.removeClass('selected');
+          $s.addClass('selected');
+
+          if($minor.hasClass('on')) {
+            $s.addClass('selected-as-minor');
+          }
+
+          // if already selected, should it toggle to minor?
+          
+          // if($selected.length > 0 && $s.length > 0) {
+          //   if($selected[0].id == $s[0].id) {
+          //     if(!was_minor) {
+          //       $s.addClass('selected-as-minor');
+          //       // set up as minor
+          //     }
+          //     else {
+          //       // set up as major
+          //     }
+          //   }
+          // }
+
+
           $board.addClass('set-' + major_key);
           $scale.addClass('scale-' + major_key);
 
           let is_major = true;
-          if($board.hasClass('minor')) {
+          // if($board.hasClass('minor')) {
+          if($minor.hasClass('on')) {
             is_major = false;
             $('#major_header').addClass('hidden');
             $('#minor_header').removeClass('hidden');
@@ -460,9 +470,7 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
             }
           }
 
-          let $selected = $('.selected');
-          $selected.removeClass('selected');
-          $(sender).addClass('selected');
+
         }
 
         function board_toggle_class(css_class, sender) {
@@ -482,12 +490,16 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
                 $board.removeClass(css_class);
                 if(css_class === 'minor') {
                   console.log('minor toggle off');
+
+                  // update buttons and scale
                 }
             }
             else {
                 $board.addClass(css_class);
                 if(css_class === 'minor') {
                   console.log('minor toggle on');
+
+                  // update buttons and scale
                 }
             }
 
