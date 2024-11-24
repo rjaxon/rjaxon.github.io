@@ -290,7 +290,7 @@ div {
                          <th> 1 </th>
                          <th> - </th>
                          <th> 2 </th>
-                         <th> &flat;3 </th>
+                         <th> 3 </th>
                          <th> - </th>
                          <th> 4 </th>
                          <th> - </th>
@@ -398,9 +398,15 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
           });
 
           for(let i = 1; i <= 13; ++i) {
-              $('#sc-' + i ).html(''); 
+              let $c = $('#sc-' + i );
+              $c.html('');
+              $c.removeClass('lt-gray');
+              
           }
 
+
+          let $pentatonic = $('#btn-pentatonic');
+          let $triads = $('#btn-triads');
           let $minor = $('#btn-minor');
           let $selected = $('.selected');
           let was_minor = $selected.hasClass('selected-as-minor');
@@ -448,6 +454,7 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
 
             $('#sc-name' ).html(k[0]); 
 
+            let is_5 = $pentatonic.hasClass('on');
             if(is_major) {
               $('#sc-1' ).html(k[1]); 
               $('#sc-3' ).html(k[2]); 
@@ -457,6 +464,11 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
               $('#sc-10').html(k[6]); 
               $('#sc-12').html(k[7]); 
               $('#sc-13').html(k[8]); 
+
+              if(is_5) {
+                $('#sc-6' ).addClass('lt-gray');
+                $('#sc-12' ).addClass('lt-gray');
+              }
             }
             else {
               $('#sc-1' ).html(k[1]); 
@@ -467,6 +479,10 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
               $('#sc-9' ).html(k[6]); 
               $('#sc-11').html(k[7]); 
               $('#sc-13').html(k[8]); 
+              if(is_5) {
+                $('#sc-3' ).addClass('lt-gray');
+                $('#sc-9' ).addClass('lt-gray');
+              }
             }
           }
 
@@ -607,7 +623,9 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
 
 let note_data = {E: {}, A: {}, G: {}, B: {}, e: {}};
 
-note_data.e.f = { };
+note_data.e = [12];
+note_data.e[0] = { };
+note_data.e[1] = { };
 
     </script>
 </html>
