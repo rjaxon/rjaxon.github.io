@@ -233,7 +233,7 @@ div {
     color: red;
 }
 
-.lt-gray {
+.penta-omit {
     color: #ccc;
 }
 
@@ -400,7 +400,7 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
           for(let i = 1; i <= 13; ++i) {
               let $c = $('#sc-' + i );
               $c.html('');
-              $c.removeClass('lt-gray');
+              $c.removeClass('penta-omit');
               
           }
 
@@ -452,40 +452,47 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
           if(keys[_newkey]) {
             let k = keys[ _newkey ].split(', ');
 
-            $('#sc-name' ).html(k[0]); 
-
             let is_5 = $pentatonic.hasClass('on');
-            if(is_major) {
-              $('#sc-1' ).html(k[1]); 
-              $('#sc-3' ).html(k[2]); 
-              $('#sc-5' ).html(k[3]); 
-              $('#sc-6' ).html(k[4]); 
-              $('#sc-8' ).html(k[5]); 
-              $('#sc-10').html(k[6]); 
-              $('#sc-12').html(k[7]); 
-              $('#sc-13').html(k[8]); 
-
-              if(is_5) {
-                $('#sc-6' ).addClass('lt-gray');
-                $('#sc-12' ).addClass('lt-gray');
-              }
-            }
-            else {
-              $('#sc-1' ).html(k[1]); 
-              $('#sc-3' ).html(k[2]); 
-              $('#sc-4' ).html(k[3]); 
-              $('#sc-6' ).html(k[4]); 
-              $('#sc-8' ).html(k[5]); 
-              $('#sc-9' ).html(k[6]); 
-              $('#sc-11').html(k[7]); 
-              $('#sc-13').html(k[8]); 
-              if(is_5) {
-                $('#sc-3' ).addClass('lt-gray');
-                $('#sc-9' ).addClass('lt-gray');
-              }
-            }
+            update_scale(k, is_major, is_5);
           }
 
+
+        }
+
+        function update_scale(keys, is_major, is_5) {
+
+          let k = keys;
+          $('#sc-name' ).html(k[0]); 
+
+          if(is_major) {
+            $('#sc-1' ).html(k[1]); 
+            $('#sc-3' ).html(k[2]); 
+            $('#sc-5' ).html(k[3]); 
+            $('#sc-6' ).html(k[4]); 
+            $('#sc-8' ).html(k[5]); 
+            $('#sc-10').html(k[6]); 
+            $('#sc-12').html(k[7]); 
+            $('#sc-13').html(k[8]); 
+
+            if(is_5) {
+              $('#sc-6' ).addClass('penta-omit');
+              $('#sc-12' ).addClass('penta-omit');
+            }
+          }
+          else {
+            $('#sc-1' ).html(k[1]); 
+            $('#sc-3' ).html(k[2]); 
+            $('#sc-4' ).html(k[3]); 
+            $('#sc-6' ).html(k[4]); 
+            $('#sc-8' ).html(k[5]); 
+            $('#sc-9' ).html(k[6]); 
+            $('#sc-11').html(k[7]); 
+            $('#sc-13').html(k[8]); 
+            if(is_5) {
+              $('#sc-3' ).addClass('penta-omit');
+              $('#sc-9' ).addClass('penta-omit');
+            }
+          }
 
         }
 
@@ -508,6 +515,9 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
                   console.log('minor toggle off');
 
                   // update buttons and scale
+                } 
+                else if(css_class === 'pentatonic') {
+                  $('.penta-omit').removeClass('penta-omit');
                 }
             }
             else {
@@ -516,6 +526,21 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
                   console.log('minor toggle on');
 
                   // update buttons and scale
+                  // let $minor = $('#btn-minor');
+                  // let is_major = $minor.hasClass('on');
+                  // let _newkey = is_major ? major_key : minor_key;
+                  // let k = keys[ _newkey ].split(', ');
+                  // let is_5 = $pentatonic.hasClass('on');
+                  // update_scale(k, is_major, is_5);
+                }
+                else if(css_class === 'pentatonic') {
+                  // update penta scale notes
+                  // let $minor = $('#btn-minor');
+                  // let is_major = $minor.hasClass('on');
+                  // let k = keys[ _newkey ].split(', ');
+                  // let is_5 = $pentatonic.hasClass('on');
+                  // update_scale(k, is_major, is_5);
+
                 }
             }
 
@@ -579,12 +604,12 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
 
 
             if(args.key) {
-              if(accepted_major.indexOf('_' + args.key + '_') > 0) {
+              if(accepted_major.indexOf('_' + args.key + '_') >= 0) {
                 $button = $('[major="' + args.key + '"]');
                 // on_key_click(args.key, 'am');
                 on_key_click($button.attr('major'), $button.attr('minor'), $button[0]);
               }
-              else if(accepted_minor.indexOf('_' + args.key + '_') > 0) {
+              else if(accepted_minor.indexOf('_' + args.key + '_') >= 0) {
                 $button = $('[minor="' + args.key + '"]');
                 // on_key_click('c', args.key);
                 on_key_click($button.attr('major'), $button.attr('minor'), $button[0]);
