@@ -37,7 +37,7 @@ div {
 .note {
     padding: 0em;
     width: 40px;
-    height: 85px;
+    height: 60px;
     position: absolute;
     background-image: url('./NOTES-Cmaj-2.png');
     background-repeat: no-repeat;
@@ -644,6 +644,9 @@ let note_data = {E: {}, A: {}, G: {}, B: {}, e: {}};
 note_data.note = {};
 
 //  [bg-x, bg-y, offset-x, offset-y]        
+
+note_data.note.none = [-152, -109];
+
 note_data.note.e1 = [-12, -386];
 note_data.note.f1 = [-84, -386];
 note_data.note.g1 = [-218, -386];
@@ -671,12 +674,119 @@ note_data.note.d3 = [-683,-493, 0, -5];
 
 
 note_data.e = [14];
-note_data.e[0] = { };
-note_data.e[1] = { };
+note_data.e[0] = [5, 40];
+note_data.e[1] = [80, 40];
 note_data.e[2] = [152, 40];
+note_data.e[3] = [215, 40];
+
+note_data.e[4] = [280, 40];
+note_data.e[5] = [346, 40];
+note_data.e[6] = [415, 40];
+note_data.e[7] = [480, 40];
+
+note_data.e[8]  = [545, 40];
+note_data.e[9]  = [610, 40];
+note_data.e[10] = [680, 40];
+note_data.e[11] = [745, 40];
+
+note_data.e[12] = [815, 40];
+note_data.e[13] = [880, 40];
 
 note_data.B = [14];
+note_data.B[0] = [5, 109];
+note_data.B[1] = [80, 109];
 note_data.B[2] = [152, 109];
+note_data.B[3] = [215, 109];
+
+note_data.B[4] = [280, 109];
+note_data.B[5] = [346, 109];
+note_data.B[6] = [415, 109];
+note_data.B[7] = [480, 109];
+
+note_data.B[8]  = [545, 109];
+note_data.B[9]  = [610, 109];
+note_data.B[10] = [680, 109];
+note_data.B[11] = [745, 109];
+
+note_data.B[12] = [815, 109];
+note_data.B[13] = [880, 109];
+
+
+note_data.G = [14];
+note_data.G[0] = [5, 178];
+note_data.G[1] = [80, 178];
+note_data.G[2] = [152, 178];
+note_data.G[3] = [215, 178];
+
+note_data.G[4] = [280, 178];
+note_data.G[5] = [346, 178];
+note_data.G[6] = [415, 178];
+note_data.G[7] = [480, 178];
+
+note_data.G[8]  = [545, 178];
+note_data.G[9]  = [610, 178];
+note_data.G[10] = [680, 178];
+note_data.G[11] = [745, 178];
+
+note_data.G[12] = [815, 178];
+note_data.G[13] = [880, 178];
+
+note_data.D = [14];
+note_data.D[0] = [5, 248];
+note_data.D[1] = [80, 248];
+note_data.D[2] = [152, 248];
+note_data.D[3] = [215, 248];
+
+note_data.D[4] = [280, 248];
+note_data.D[5] = [346, 248];
+note_data.D[6] = [415, 248];
+note_data.D[7] = [480, 248];
+
+note_data.D[8]  = [545, 248];
+note_data.D[9]  = [610, 248];
+note_data.D[10] = [680, 248];
+note_data.D[11] = [745, 248];
+
+note_data.D[12] = [815, 248];
+note_data.D[13] = [880, 248];
+
+note_data.A = [14];
+note_data.A[0] = [5, 317];
+note_data.A[1] = [80, 317];
+note_data.A[2] = [152, 317];
+note_data.A[3] = [215, 317];
+
+note_data.A[4] = [280, 317];
+note_data.A[5] = [346, 317];
+note_data.A[6] = [415, 317];
+note_data.A[7] = [480, 317];
+
+note_data.A[8]  = [545, 317];
+note_data.A[9]  = [610, 317];
+note_data.A[10] = [680, 317];
+note_data.A[11] = [745, 317];
+
+note_data.A[12] = [815, 317];
+note_data.A[13] = [880, 317];
+
+note_data.E = [14];
+note_data.E[0] = [5, 386];
+note_data.E[1] = [80, 386];
+note_data.E[2] = [152, 386];
+note_data.E[3] = [215, 386];
+
+note_data.E[4] = [280, 386];
+note_data.E[5] = [346, 386];
+note_data.E[6] = [415, 386];
+note_data.E[7] = [480, 386];
+
+note_data.E[8]  = [545, 386];
+note_data.E[9]  = [610, 386];
+note_data.E[10] = [680, 386];
+note_data.E[11] = [745, 386];
+
+note_data.E[12] = [815, 386];
+note_data.E[13] = [880, 386];
 
 
         function notes_clear() {
