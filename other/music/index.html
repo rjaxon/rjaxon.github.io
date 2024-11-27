@@ -37,7 +37,7 @@ div {
 .note {
     padding: 0em;
     width: 40px;
-    height: 60px;
+    height: 85px;
     position: absolute;
     background-image: url('./NOTES-Cmaj-2.png');
     background-repeat: no-repeat;
@@ -45,13 +45,6 @@ div {
 
 .note-none {
     background-position: -152px -109px;
-}
-
-.note-e {
-    background-position: -10px -40px;
-}
-.note-f {
-    background-position: -79px -40px;
 }
 
 .flat {
@@ -244,8 +237,8 @@ div {
         <div>
             <div id="notes">
                 <div class="note note-none hidden" style="left: 108px; top: 64px;" ></div>
-                <div class="note note-f" style="left: 152px; top: 40px;" ></div>
-                <div class="sharp" style="left: 144px; top: 46px;" ></div>
+                <!--div class="note note-f" style="left: 152px; top: 40px;" ></div>
+                <div class="sharp" style="left: 144px; top: 46px;" ></div-->
             </div>
         </div>
 
@@ -648,9 +641,72 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
 
 let note_data = {E: {}, A: {}, G: {}, B: {}, e: {}};
 
-note_data.e = [12];
+note_data.note = {};
+
+//  [bg-x, bg-y, offset-x, offset-y]        
+note_data.note.e1 = [-12, -386];
+note_data.note.f1 = [-84, -386];
+note_data.note.g1 = [-218, -386];
+note_data.note.a1 = [-12, -317];
+note_data.note.b1 = [-151, -317];
+note_data.note.c1 = [-219, -317];
+note_data.note.d1 = [-12,-248];
+
+
+note_data.note.e2 = [-151, -248];
+note_data.note.f2 = [-218, -248];
+note_data.note.g2 = [-12, -178];
+note_data.note.a2 = [-149, -178];
+note_data.note.b2 = [-12, -109];
+note_data.note.c2 = [-79, -109];
+note_data.note.d2 = [-214,-109];
+
+note_data.note.e3 = [-12, -40];
+note_data.note.f3 = [-79, -40];
+note_data.note.g3 = [-218, -40];
+note_data.note.a3 = [-348, -40];
+note_data.note.b3 = [-484, -40];
+note_data.note.c3 = [-883, -109];
+note_data.note.d3 = [-683,-493, 0, -5];
+
+
+note_data.e = [14];
 note_data.e[0] = { };
 note_data.e[1] = { };
+note_data.e[2] = [152, 40];
+
+note_data.B = [14];
+note_data.B[2] = [152, 109];
+
+
+        function notes_clear() {
+          $('#notes').empty();
+        }
+
+        function notes_add(note, string, fret) {
+          let div = document.createElement('div');
+          let $div = $(div);
+          $div.addClass('note');
+
+
+          let _note = note_data.note[note];
+          let left = note_data[string][fret][0];
+          let _top = note_data[string][fret][1] ;
+
+          if(_note.length >= 4) {
+            _top += _note[3];
+          }
+
+
+          $div.attr('style', 'background-position: '+ 
+                      _note[0] + 'px ' + 
+                      _note[1] +'px; left: ' +
+                      left +'px; top: ' + 
+                      _top +'px;');
+
+
+          $('#notes').append(div);
+        }
 
     </script>
 </html>
