@@ -1009,10 +1009,18 @@ fret_key.Gf = [
           let div = document.createElement('div');
           let $div = $(div);
           $div.addClass('note');
-          if(s)
+          if(s) {
             $div.addClass(note + '.' + s);
-          else
+            if(note.indexOf('staff') < 0) {
+              $div.attr('title', (note[0].toUpperCase() + (s == 's' ? '#' : 'b') + ' ' + note[1]));
+            }
+          }
+          else {
             $div.addClass(note);
+            if(note.indexOf('staff') < 0) {
+              $div.attr('title', note[0].toUpperCase() + ' ' + note[1]);
+            }
+          }
 
 
           let _note = note_data.note[note];
@@ -1031,13 +1039,12 @@ fret_key.Gf = [
           let height = null;
           if(_note.length >= 6) {
             width = _note[4];
-            height = _note[5]
+            height = _note[5];
           }
 
           if(_note.length >= 7) {
             notes_add('staff_' + _note[6], string, fret)
           }
-
 
           let _s = null;
 
