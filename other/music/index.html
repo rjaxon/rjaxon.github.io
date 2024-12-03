@@ -30,7 +30,7 @@ div {
     width: 946px;
     height: 478px;
 
-    background-image: url('./NOTES-Cmaj-2.png');
+    background-image: url('./NOTES-Cmaj-2-clear.png');
     background-repeat: no-repeat;
 }
 
@@ -61,7 +61,7 @@ div {
     padding: 0em;
     width: 15px;
     height: 20px;
-    position: relative;
+    position: absolute;
     background-image: url('./NOTES-Cmaj-2.png');
     background-repeat: no-repeat;
     background-position: -5px -490px;
@@ -614,6 +614,7 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
 
           }
 
+          notes_load('C');
         }
 
         let sound = null;
@@ -647,30 +648,38 @@ note_data.note = {};
 
 note_data.note.none = [-152, -109];
 
-note_data.note.e1 = [-12, -386];
-note_data.note.f1 = [-84, -386];
-note_data.note.g1 = [-218, -386];
-note_data.note.a1 = [-12, -317];
-note_data.note.b1 = [-151, -317];
-note_data.note.c1 = [-219, -317];
-note_data.note.d1 = [-12,-248];
+note_data.note.e1 = [-12, -440, 0, 55, 40, 30 ];
+note_data.note.f1 = [-84, -440, 0, 55, 40, 30 ];
+note_data.note.g1 = [-218, -440, 0, 55, 40, 30];
+note_data.note.a1 = [-12, -370, 0, 53, 40, 20 ];
+note_data.note.b1 = [-151, -370, 0, 53, 40, 20];
+note_data.note.c1 = [-219, -370, 0, 53, 40, 20];
+note_data.note.d1 = [-351, -503, 0, 49, 19, 9 ];
 
 
-note_data.note.e2 = [-151, -248];
-note_data.note.f2 = [-218, -248];
-note_data.note.g2 = [-12, -178];
-note_data.note.a2 = [-149, -178];
-note_data.note.b2 = [-12, -109];
-note_data.note.c2 = [-79, -109];
-note_data.note.d2 = [-214,-109];
+note_data.note.e2 = [-351, -503, 0, 46, 19, 9 ];
+note_data.note.f2 = [-351, -503, 3, 42, 19, 9 ];
+note_data.note.g2 = [-351, -503, 0, 38, 19, 9 ];
+note_data.note.a2 = [-351, -503, 0, 35, 19, 9 ];
+note_data.note.b2 = [-351, -503, 0, 30, 19, 9 ];
+note_data.note.c2 = [-351, -503, 0, 27, 19, 9 ];
+note_data.note.d2 = [-351, -503, 0, 22, 19, 9 ];
 
 note_data.note.e3 = [-12, -40];
-note_data.note.f3 = [-79, -40];
+note_data.note.f3 = [-351, -503, 3, 15, 19, 9 ];
 note_data.note.g3 = [-218, -40];
 note_data.note.a3 = [-348, -40];
 note_data.note.b3 = [-484, -40];
 note_data.note.c3 = [-883, -109];
 note_data.note.d3 = [-683,-493, 0, -5];
+
+note_data.note.e4 = [-12, -40];
+note_data.note.f4 = [-79, -40];
+note_data.note.g4 = [-218, -40];
+note_data.note.a4 = [-348, -40];
+note_data.note.b4 = [-484, -40];
+note_data.note.c4 = [-883, -109];
+note_data.note.d4 = [-683,-493, 0, -5];
 
 
 note_data.e = [14];
@@ -789,33 +798,141 @@ note_data.E[12] = [815, 386];
 note_data.E[13] = [880, 386];
 
 
+let fret_key = {};
+
+fret_key.C = [
+/*
+[-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,
+ */
+[   'e3',   'f3',      0,   'g3',      0,   'a3',      0,   'b3',    'c3',     0,   'd3',      0,   'e4',   'f4' ],                     
+[   'b2',   'c2',      0,   'd2',      0,   'e3',   'f3',      0,    'g3',     0,   'a3',      0,   'b3',   'c3' ],                     
+[   'g2',      0,   'a2',      0,   'b2',   'c2',      0,   'd2',       0,  'e3',   'f3',      0,   'g3',      0 ],
+[   'd1',      0,   'e2',   'f2',      0,   'g2',      0,   'a2',       0,  'b2',   'c2',      0,   'd2',      0 ],
+[   'a1',      0,   'b1',   'c1',      0,   'd1',      0,   'e2',    'f2',     0,   'g2',      0,   'a2',      0 ],
+[   'e1',   'f1',      0,   'g1',      0,   'a1',      0,   'b1',    'c1',     0,   'd1',      0,   'e2',   'f2' ],
+];
+
+
+fret_key.G = [
+/*
+[-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,
+ */
+[   'e3',      0, 'f3.s',   'g3',      0,   'a3',      0,   'b3',   'c3',      0,   'd3',      0,  'e4',      0 ],                     
+[   'b2',   'c2',      0,   'd2',     0,    'e3',      0, 'f3.s',   'g3',      0,   'a3',      0,  'b3',      0 ],                     
+[   'g2',      0,   'a2',      0,   'b2',   'c2',      0,   'd2',      0,   'e3',      0, 'f3.s',  'g3',      0 ],
+[   'd1',      0,   'e2',      0, 'f2.s',   'g2',      0,   'a2',      0,   'b2',   'c2',      0,  'd2',      0 ],
+[   'a1',      0,   'b1',   'c1',      0,   'd1',      0,   'e2',      0, 'f2.s',   'g2',      0,  'a2',      0 ],
+[   'e1',      0, 'f1.s',   'g1',      0,   'a1',      0,   'b1',   'c1',      0,   'd1',      0,  'e2',      0 ],
+];
+
+fret_key.D = [
+/*
+[-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,-------,
+ */
+[   'e3',      0, 'f3.s',   'g3',      0,   'a3',      0,   'b3',      0, 'c3.s',   'd3',      0,  'e4',      0 ],                     
+[   'b2',      0, 'c2.s',   'd2',     0,    'e3',      0, 'f3.s',   'g3',      0,   'a3',      0,  'b3',      0 ],                     
+[   'g2',      0,   'a2',      0,   'b2',      0, 'c2.s',   'd2',      0,   'e3',      0, 'f3.s',  'g3',      0 ],
+[   'd1',      0,   'e2',      0, 'f2.s',   'g2',      0,   'a2',      0,   'b2',      0, 'c2.s',  'd2',      0 ],
+[   'a1',      0,   'b1',      0, 'c1.s',   'd1',      0,   'e2',      0, 'f2.s',   'g2',      0,  'a2',      0 ],
+[   'e1',      0, 'f1.s',   'g1',      0,   'a1',      0,   'b1',      0, 'c1.s',   'd1',      0,  'e2',      0 ],
+];
+
+
+        function notes_load(key_to_load) {
+          let key = fret_key[key_to_load];
+          if(!key) {
+            console.log('Key not found');
+            return;
+          }
+
+          let _string = ['e', 'B', 'G', 'D', 'A', 'E'];
+
+          for(let i = 0; i < 6; ++i) {
+            for(let j = 0; j < 13; ++j) {
+              let note = key[i][j];
+              if(note) {
+                let s = null;
+                if(note.length > 2) {
+                  let n = note.split('.');
+                  note = n[0];
+                  s = n[1];
+                  console.log(note + ' ' + s);
+                }
+                let string = _string[i];
+                let fret = j;
+
+                notes_add(note, string, fret, s);
+              }
+            }
+          }
+        }
+
         function notes_clear() {
           $('#notes').empty();
         }
 
-        function notes_add(note, string, fret) {
+        function notes_add(note, string, fret, s) {
           let div = document.createElement('div');
           let $div = $(div);
           $div.addClass('note');
+          if(s)
+            $div.addClass(note + '.' + s);
+          else
+            $div.addClass(note);
 
 
           let _note = note_data.note[note];
           let left = note_data[string][fret][0];
           let _top = note_data[string][fret][1] ;
 
+          if(_note.length >= 3) {
+            left += _note[2];
+          }
+
           if(_note.length >= 4) {
             _top += _note[3];
           }
 
+          let width = null;
+          let height = null;
+          if(_note.length >= 6) {
+            width = _note[4];
+            height = _note[5]
+          }
 
-          $div.attr('style', 'background-position: '+ 
-                      _note[0] + 'px ' + 
-                      _note[1] +'px; left: ' +
-                      left +'px; top: ' + 
-                      _top +'px;');
+
+          let style = `background-position: ${_note[0]}px ${_note[1]}px;
+          left: ${left}px;
+          top: ${_top}px; `;
+
+          if(width != null && height != null) {
+            style += ` width: ${width}px; height: ${height}px;`;
+          }
+
+          // $div.attr('style', 'background-position: '+ 
+          //             _note[0] + 'px ' + 
+          //             _note[1] +'px; left: ' +
+          //             left +'px; top: ' + 
+          //             _top +'px;');
+          $div.attr('style', style);
 
 
           $('#notes').append(div);
+
+          if(s) {
+            if(s === 's') {
+              let _s = document.createElement('div');
+              let $_s= $(_s);
+              $_s.addClass('sharp');
+              $_s.attr('style', `
+                    left: ${left - 7}px;
+                    top: ${_top - 6}px; `);
+              $('#notes').append(_s);
+
+            }
+            else if(s === 'f') {
+            }
+          }
         }
 
     </script>
