@@ -628,7 +628,7 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
               }
             }
             else {
-              on_key_click('c', 'am');
+              on_key_click('c', 'am', $('#btn-c')[0]);
             }
 
           }
@@ -676,7 +676,7 @@ note_data.note.e1 = [-351, -502, 2, 74, 19, 11, 3 ];
 note_data.note.f1 = [-351, -502, 2, 71, 19, 11, 3 ];
 note_data.note.g1 = [-351, -502, 0, 66, 19, 11, 2 ];
 note_data.note.a1 = [-351, -502, 2, 63, 19, 11, 2 ];
-note_data.note.b1 = [-351, -502, 2, 59, 19, 11, 1 ];
+note_data.note.b1 = [-351, -502, 1, 59, 19, 11, 1 ];
 note_data.note.c1 = [-351, -502, 2, 55, 19, 11, 1 ];
 note_data.note.d1 = [-351, -503, 0, 49, 19, 9  ];
 
@@ -706,6 +706,8 @@ note_data.note.c4 = [-883, -109];
 note_data.note.d4 = [-683,-493, 0, -5];
 
 
+// Fretboard locations
+// ... = [left, top]
 note_data.e = [14];
 note_data.e[0] = [5, 40];
 note_data.e[1] = [80, 40];
