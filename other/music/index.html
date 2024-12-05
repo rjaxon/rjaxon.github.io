@@ -238,7 +238,13 @@ div {
     height: 371px;
     background-image: url(./fretboard-empty.png);
     background-position: 0px -75px;
+}
 
+.test-fretboard-top {
+  position: relative;
+  width: 1062px;
+  height: 30px;
+  padding: 0px;
 }
 
 .test-note {
@@ -254,7 +260,7 @@ div {
     position: absolute;
     background: white;
     padding: 0px;
-    border: 1px solid red;
+    border: 1px solid white;
     border-radius: 15px;
 }
 
@@ -266,14 +272,32 @@ div {
 
   div.test-circle {
     left: 10px;
-    top: 13px;
+    top: 9px;
   }
 
   img.test-note {
     left: 0px;
     top: 0px;
   }
+
+  span {
+    svg {
+      width: 55px;
+    }
+  }
 }
+
+.test-container.minor {
+  width: 50px;
+  height: 50px;
+
+  span {
+    svg {
+      width: 50px;
+    }
+  }
+}
+
 
 </style>
     <body>
@@ -307,6 +331,20 @@ div {
             </div>
             <div id="board-bottom" class="board board-bottom hidden">
             </div>
+
+            <!-- fret formula X = (fret * 66) + 9 -->
+            <div class="test-fretboard-top">
+              <img src="./svg/dot-single.svg" style="width: 50px; position: absolute; top: -10px; left: 210px;" />
+              <img src="./svg/dot-single.svg" style="width: 50px; position: absolute; top: -10px; left: 342px;" />
+              <img src="./svg/dot-single.svg" style="width: 50px; position: absolute; top: -10px; left: 474px;" />
+              <img src="./svg/dot-single.svg" style="width: 50px; position: absolute; top: -10px; left: 606px;" />
+              <span style="width: 50px; position: absolute; top: -10px; left: 804px;" >
+                <img src="./svg/dot-single.svg" style="width: 50px; position: absolute; top: -7px; left: 0px;" />
+                <img src="./svg/dot-single.svg" style="width: 50px; position: absolute; top:  7px; left: 0px;" />
+              </span>
+            </div>
+            <div class="test-fretboard"> </div>
+  
             <div>
                 <table border=0 style="font-family: monospace; font-size: 30px; width: 950px; font-weight: bold; text-align: center;">
                     <tr id="major_header"> <td>&nbsp;</td>
@@ -387,90 +425,90 @@ div {
           <div id="audio" onclick="play_track();">PLAY</div>
         </div-->
 
-        <!-- fret formula X = (fret * 66) + 9 -->
-        <div class="test-fretboard">
-
-        </div>
 
 
     </body>
 
     <script type="text/javascript">
 
+let svg_data = {};
+svg_data.number1 = `
+<svg fill="#FF0000" width="55px" height="55px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 3c-7.18 0-13 5.82-13 13s5.82 13 13 13 13-5.82 13-13-5.82-13-13-13z
+M17.757 22.536h-2.469v-9.305c-0.901 0.841-1.964 1.463-3.188 1.867
+v-2.234c0.644-0.211 1.344-0.612 2.099-1.202s1.273-1.278 1.555-2.064h2.003v12.938z"></path>
+</svg> `;
+
+svg_data.number6 = `
+<svg fill="#004d00" width="55px" height="55px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.062 16.037c-0.476 0-0.877 0.186-1.205 0.558-0.329 0.372-0.493 0.921-0.493 
+1.647 0 0.803 0.185 1.422 0.555 1.858 0.369 0.437 0.791 0.655 1.267 0.655 0.457 0 
+0.839-0.18 1.144-0.537s0.457-0.942 0.457-1.757c0-0.838-0.164-1.451-0.492-1.841s-0.74-0.583-1.233-0.583z
+M16 3c-7.18 0-13 5.82-13 13s5.82 13 13 13 13-5.82 13-13-5.82-13-13-13z
+M19.047 21.607c-0.773 0.797-1.768 1.194-2.98 1.194-1.302 0-2.372-0.505-3.21-1.516s-1.258-2.667-1.258-4.97c0-2.361 
+0.438-4.063 1.312-5.106s2.008-1.564 3.404-1.564c0.979 0 1.79 0.275 2.432 0.825 0.643 
+0.551 1.052 1.349 1.228 2.396l-2.391 0.263c-0.059-0.49-0.212-0.853-0.458-1.086-0.247-0.234-0.567-0.351-0.961-0.351-0.523 
+0-0.966 0.233-1.327 0.701s-0.589 1.44-0.683 2.92c0.615-0.726 1.381-1.089 2.297-1.089 1.032 0 1.916 0.392 2.652 
+1.176s1.104 1.797 1.104 3.038c0 1.318-0.387 2.374-1.161 3.169z"></path>
+</svg>
+`
   function test_clear() {
     $('.test-fretboard').empty();
   }
 
-  async function test_load(starting_fret) {
+  function test_load(starting_fret) {
 
     let s = starting_fret || 0;
 
     test_clear();
 
-    await test_add( (s + 0) % 12, 0, 3);
-    await test_add( (s + 1) % 12, 0, 4);
-    await test_add( (s + 3) % 12, 0, 5);
-    await test_add( (s + 5) % 12, 0, 6);
-    await test_add( (s + 7) % 12, 0, 7);
-    await test_add( (s + 8) % 12, 0, 1);
-    await test_add( (s +10) % 12, 0, 2);
-    // test_add( (s +12) % 12, 0, 3);
-    // test_add(13, 0, 4);
-    // test_add(15, 0, 5);
+    test_add( (s + 0) % 12, 0, 3);
+    test_add( (s + 1) % 12, 0, 4);
+    test_add( (s + 3) % 12, 0, 5);
+    test_add( (s + 5) % 12, 0, 6);
+    test_add( (s + 7) % 12, 0, 7);
+    test_add( (s + 8) % 12, 0, 1);
+    test_add( (s +10) % 12, 0, 2);
 
-    await test_add( (s + 0) % 12, 1, 7);
-    await test_add( (s + 1) % 12, 1, 1);
-    await test_add( (s + 3) % 12, 1, 2);
-    await test_add( (s + 5) % 12, 1, 3);
-    await test_add( (s + 6) % 12, 1, 4);
-    await test_add( (s + 8) % 12, 1, 5);
-    await test_add( (s +10) % 12, 1, 6);
-    // test_add(12, 1, 7);
-    // test_add(13, 1, 1);
-    // test_add(15, 1, 2);
+    test_add( (s + 0) % 12, 1, 7);
+    test_add( (s + 1) % 12, 1, 1);
+    test_add( (s + 3) % 12, 1, 2);
+    test_add( (s + 5) % 12, 1, 3);
+    test_add( (s + 6) % 12, 1, 4);
+    test_add( (s + 8) % 12, 1, 5);
+    test_add( (s +10) % 12, 1, 6);
 
-    await test_add( (s + 0) % 12, 2, 5);
-    await test_add( (s + 2) % 12, 2, 6);
-    await test_add( (s + 4) % 12, 2, 7);
-    await test_add( (s + 5) % 12, 2, 1);
-    await test_add( (s + 7) % 12, 2, 2);
-    await test_add( (s + 9) % 12, 2, 3);
-    await test_add( (s +10) % 12, 2, 4);
-    // test_add(12, 2, 5);
-    // test_add(14, 2, 6);
+    test_add( (s + 0) % 12, 2, 5);
+    test_add( (s + 2) % 12, 2, 6);
+    test_add( (s + 4) % 12, 2, 7);
+    test_add( (s + 5) % 12, 2, 1);
+    test_add( (s + 7) % 12, 2, 2);
+    test_add( (s + 9) % 12, 2, 3);
+    test_add( (s +10) % 12, 2, 4);
 
-    await test_add( (s + 0) % 12, 3, 2);
-    await test_add( (s + 2) % 12, 3, 3);
-    await test_add( (s + 3) % 12, 3, 4);
-    await test_add( (s + 5) % 12, 3, 5);
-    await test_add( (s + 7) % 12, 3, 6);
-    await test_add( (s + 9) % 12, 3, 7);
-    await test_add( (s +10) % 12, 3, 1);
-    // test_add(12, 3, 2);
-    // test_add(14, 3, 3);
-    // test_add(15, 3, 4);
+    test_add( (s + 0) % 12, 3, 2);
+    test_add( (s + 2) % 12, 3, 3);
+    test_add( (s + 3) % 12, 3, 4);
+    test_add( (s + 5) % 12, 3, 5);
+    test_add( (s + 7) % 12, 3, 6);
+    test_add( (s + 9) % 12, 3, 7);
+    test_add( (s +10) % 12, 3, 1);
 
-    await test_add( (s + 0) % 12, 4, 6);
-    await test_add( (s + 2) % 12, 4, 7);
-    await test_add( (s + 3) % 12, 4, 1);
-    await test_add( (s + 5) % 12, 4, 2);
-    await test_add( (s + 7) % 12, 4, 3);
-    await test_add( (s + 8) % 12, 4, 4);
-    await test_add( (s +10) % 12, 4, 5);
-    // test_add(12, 4, 6);
-    // test_add(14, 4, 7);
-    // test_add(15, 4, 1);
+    test_add( (s + 0) % 12, 4, 6);
+    test_add( (s + 2) % 12, 4, 7);
+    test_add( (s + 3) % 12, 4, 1);
+    test_add( (s + 5) % 12, 4, 2);
+    test_add( (s + 7) % 12, 4, 3);
+    test_add( (s + 8) % 12, 4, 4);
+    test_add( (s +10) % 12, 4, 5);
 
-    await test_add( (s + 0) % 12, 5, 3);
-    await test_add( (s + 1) % 12, 5, 4);
-    await test_add( (s + 3) % 12, 5, 5);
-    await test_add( (s + 5) % 12, 5, 6);
-    await test_add( (s + 7) % 12, 5, 7);
-    await test_add( (s + 8) % 12, 5, 1);
-    await test_add( (s +10) % 12, 5, 2);
-    // test_add(12, 5, 3);
-    // test_add(13, 5, 4);
-    // test_add(15, 5, 5);
+    test_add( (s + 0) % 12, 5, 3);
+    test_add( (s + 1) % 12, 5, 4);
+    test_add( (s + 3) % 12, 5, 5);
+    test_add( (s + 5) % 12, 5, 6);
+    test_add( (s + 7) % 12, 5, 7);
+    test_add( (s + 8) % 12, 5, 1);
+    test_add( (s +10) % 12, 5, 2);
 
     let $fb = $('.test-fretboard');
     for(let i = 12, s = 0; i <= 15; ++i, ++s) {
@@ -482,15 +520,14 @@ div {
           $n[0].id = '';
           $n[0].style.left = `${i * 66 + 9}px`;
 
-
           $fb.append($n[0]);
         }
       }
     }
   }
 
-  let svg_1 = null;
-  let svg_6 = null;
+  let svg_1 = svg_data.number1;
+  let svg_6 = svg_data.number6;
   async function test_add(x, y, number) {
     let container = document.createElement('div');
     let bg = document.createElement('div');
@@ -502,10 +539,14 @@ div {
     container.id = `fret-${x}${y}`;
 
     let _y = [7, 60, 115, 169, 225, 280];
+    let _s = ['e-h', 'B', 'G', 'D', 'A', 'E-l'];
 
     $c.attr('style', `left: ${66*x+9}px; top: ${_y[y]}px;`);
     $i.attr('src', `./svg/number${number}.svg`);
 
+    $c.addClass(`i${number}`);
+    $c.addClass(`fr${x}`);
+    $c.addClass(`st${_s[y]}`);
     $c.addClass('test-container');
     $b.addClass('test-circle');
     $i.addClass('test-note');
@@ -545,29 +586,6 @@ div {
           }
 
           $c.append(span);
-
-        // $.ajax(
-        //   { url: `./svg/number${number}.svg`,
-        //     dataType: 'text',
-        //     success: function(result) {
-
-        //       let svg_image = result.replaceAll('800px', '55px');
-        //       svg_image = svg_image.replace('svg fill="#000000"', `svg fill="#${number == 1 ? 'ff0000' : '004d00'}"`);
-        //       svg_image = svg_image.replace(/<!--.*-->/g, '');
-        //       svg_image = svg_image.replace(/<title>.*<\/title>/, '');
-        // 
-        //       span.innerHTML = svg_image;
-
-        //       if(number == 1) {
-        //         svg_1 = svg_image;
-        //       } 
-        //       else {
-        //         svg_6 = svg_image;
-        //       }
-        //       $c.append(span);
-        //     }
-        //   }
-        // );
       }
     }
     else {
@@ -784,7 +802,13 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
                 } 
                 else if(css_class === 'pentatonic') {
                   $('.penta-omit').removeClass('penta-omit');
+
+                  $('.i4.hidden, .i7.hidden').removeClass('hidden');
                 }
+                else if(css_class === 'triads') {
+                  $('.i2.hidden, .i4.hidden, .i6.hidden, .i7.hidden').removeClass('hidden');
+                }
+
             }
             else {
                 $board.addClass(css_class);
@@ -807,6 +831,10 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
                   // let is_5 = $pentatonic.hasClass('on');
                   // update_scale(k, is_major, is_5);
 
+                  $('.i4, .i7').addClass('hidden');
+                }
+                else if(css_class === 'triads') {
+                  $('.i2, .i4, .i6, .i7').addClass('hidden');
                 }
             }
 
