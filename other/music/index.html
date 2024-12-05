@@ -387,35 +387,10 @@ div {
           <div id="audio" onclick="play_track();">PLAY</div>
         </div-->
 
-<!-- fret formula X = (fret * 66) + 9 -->
+        <!-- fret formula X = (fret * 66) + 9 -->
+        <div class="test-fretboard">
 
-<div class="test-fretboard">
-<div class="test-circle" style="left: 20px;top: 19px;"></div>
-  <img class="test-note" src="./svg/number3.svg" style="left:   9px; top: 7px;">
-<div class="test-circle" style="left: 86px;top: 19px;"></div>
-  <img class="test-note" src="./svg/number4.svg" style="left:  75px; top: 7px;">
-  <img class="test-note" src="./svg/number5.svg" style="left: 207px; top: 7px;">
-  <img class="test-note" src="./svg/number7.svg" style="left:   9px;top: 60px;">
-  <img class="test-note" src="./svg/number1.svg" style="left:  75px;top: 60px;">
-  <img class="test-note" src="./svg/number2.svg" style="left: 207px;top: 60px;">
-  <img class="test-note" src="./svg/number5.svg" style="left:   9px;top: 115px;">
-  <img class="test-note" src="./svg/number6.svg" style="left: 141px;top: 115px;">
-  <img class="test-note" src="./svg/number2.svg" style="left:   9px;top: 169px;">
-  <img class="test-note" src="./svg/number3.svg" style="left: 141px;top: 169px;">
-  <img class="test-note" src="./svg/number4.svg" style="left: 207px;top: 169px;">
-  <img class="test-note" src="./svg/number6.svg" style="left:   9px;top: 225px;">
-  <img class="test-note" src="./svg/number7.svg" style="left: 141px;top: 225px;">
-  <img class="test-note" src="./svg/number1.svg" style="left: 207px;top: 225px;">
-  <img class="test-note" src="./svg/number3.svg" style="left:   9px;top: 280px;">
-  <img class="test-note" src="./svg/number4.svg" style="left:  75px;top: 280px;">
-  <img class="test-note" src="./svg/number5.svg" style="left: 207px;top: 280px;">
-
-  <div class="test-container" style="left: 207px; top: 115px;">
-      <div class="test-circle" style=""></div>
-      <img class="test-note" src="./svg/number3.svg" style="">
-  </div>
-
-      </div>
+        </div>
 
 
     </body>
@@ -732,6 +707,22 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
             }
           }
 
+          let offsets = {
+            'c': 0,
+            'df': 1,
+            'd': 2,
+            'ef': 3,
+            'e': 4,
+            'f': 5,
+            'gf': 6,
+            'g': 7,
+            'af': 8,
+            'a': 9,
+            'bf': 10,
+            'b': 11
+          };
+
+          test_load(offsets[fretkey.toLowerCase()]);
         }
 
         function update_scale(keys, is_major, is_5) {
