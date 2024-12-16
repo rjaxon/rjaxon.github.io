@@ -97,8 +97,10 @@
         }
 
 
-        function loadNotes(major_key, options) {
+        function loadNotes(options) {
             let strings = ['low-e', 'a', 'd', 'g', 'b', 'high-e'].reverse();
+
+            let major_key = options.key;
 
             let keys = getNoteData();
 
@@ -115,7 +117,9 @@
                     for(let fret = 0; fret < notes.length; ++fret) {
                         n = notes[fret];
                         if(n) {
-                            let interval = 1 + keys.scale[k].indexOf(n.replace(/\d+/g, ''))
+                            let note_plain = n.replace(/\d+/g, '');
+
+                            let interval = 1 + keys.scale[k].indexOf(note_plain)
 
                             if(options) {
 
@@ -130,7 +134,12 @@
                                     if(options.blues && interval == 3) {
                                         if(fret - 1 > 0) {
                                             if(n.indexOf('.') > 0) {
-                                                addNote(s, n.split('.')[0], fret-1, 0, interval);
+                                                let _n = n;
+                                                if(n.indexOf('.f').length > 0) {
+                                                    // _n = keys.scale[k].indexOf(note_plain - 1);
+                                                    _n = String.fromCharCode('b'.charCodeAt(0) - 1)
+                                                }
+                                                addNote(s, _n.split('.')[0], fret-1, 0, interval);
                                             }
                                             else {
                                                 addNote(s, n, fret-1, 2, interval);
@@ -434,8 +443,8 @@ key.scale.Af= [ 'a.f', 'b.f', 'c', 'd.f', 'e.f', 'f', 'g' ];
 key.board.Af = [
 /*------,-------,-------,---3---,-------,---5---,-------,---7---,-------,---9---,-------,-------,--12---,-------, */
 [      0,   'f3',      0,   'g3', 'a3.f',      0, 'b3.f',      0,   'c3', 'd3.f',      0, 'e4.f',      0,   'f4' ],                     
-[   'b2',   'c2', 'd2.f',      0, 'e3.f',      0,   'f3',      0,   'g3', 'a3.f',      0, 'b3.f',   'b3',   'c3' ],                     
-[      0, 'a2.f',      0, 'b2.f',      0,   'c2', 'd2.f',      0, 'e3.f',      0,   'f3',      0,      0, 'a3.f' ],
+[      0,   'c2', 'd2.f',      0, 'e3.f',      0,   'f3',      0,   'g3', 'a3.f',      0, 'b3.f',      0,   'c3' ],                     
+[   'g2', 'a2.f',      0, 'b2.f',      0,   'c2', 'd2.f',      0, 'e3.f',      0,   'f3',      0,   'g3', 'a3.f' ],
 [      0, 'e2.f',      0,   'f2',      0,   'g2', 'a2.f',      0, 'b2.f',      0,   'c2', 'd2.f',      0, 'e3.f' ],
 [      0, 'b1.f',      0,   'c1', 'd1.f',      0, 'e2.f',      0,   'f2',      0,   'g2', 'a2.f',      0, 'b2.f' ],
 [      0,   'f1',      0,   'g1', 'a1.f',      0, 'b1.f',      0,   'c1', 'd1.f',      0, 'e2.f',      0,   'f2' ],
@@ -473,15 +482,30 @@ key.board.Fs = [];
             return key;
         }
 
-
-
-
         function onLoad() {
+
+            let params = document.location.href.split('?');
+            let args = null;
+            args = {};
+
+            if(params.length > 1) {
+
+              let paramList = params[1].split('&');
+
+              paramList.forEach( (p) => {
+                  let _arg = p.split('=');
+                  let arg = _arg[0].toLowerCase();
+                  let val = _arg[1] || true;
+                  args[arg] = val;
+              } );
+            }
+
+            console.log(args);
+
             init();
             clearNotes();
-            loadNotes();
+            loadNotes(args);
         }
-
 
         onLoad();
 
