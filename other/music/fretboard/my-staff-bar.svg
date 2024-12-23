@@ -1,0 +1,12 @@
+<svg width="18" height="10" viewport="0 0 18 10" xmlns="http://www.w3.org/2000/svg">
+ <g>
+    <line
+        fill="none"
+        stroke="#000"
+        x1="0"
+        y1="5"
+        x2="18"
+        y2="5"
+        />
+ </g>
+</svg>

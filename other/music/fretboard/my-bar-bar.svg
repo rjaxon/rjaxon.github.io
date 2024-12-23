@@ -1,0 +1,20 @@
+<svg width="16" height="10" viewport="0 0 16 10" xmlns="http://www.w3.org/2000/svg">
+ <g>
+    <line
+        fill="none"
+        stroke="#000"
+        x1="0"
+        y1="1"
+        x2="16"
+        y2="1"
+        />
+    <line
+        fill="none"
+        stroke="#000"
+        x1="0"
+        y1="9"
+        x2="16"
+        y2="9"
+        />
+ </g>
+</svg>

@@ -1,0 +1,29 @@
+<svg width="942" height="42" viewport="0 0 942 42"  xmlns="http://www.w3.org/2000/svg">
+<g>
+  <path d="M  1  1 h  940 
+           m  0  8 h -940 
+           m  0  8 h  940 
+           m  0  8 h -940 
+           m  0  8 h  940
+           M  1  1 v 32 
+           m 77  0 v-32 
+           m  3  0 v 32
+           m 68  0 v-32
+           m 66  0 v 32
+           m 66  0 v-32
+           m 66  0 v 32
+           m 66  0 v-32
+           m 66  0 v 32
+           m 66  0 v-32
+           m 66  0 v 32
+           m 66  0 v-32
+           m 66  0 v 32
+           m 66  0 v-32
+           m 66  0 v 32
+           m 66  0 v-32
+           " 
+           fill="transparent" stroke="#000"/>
+
+</g>
+
+</svg>

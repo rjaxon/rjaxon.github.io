@@ -1,0 +1,21 @@
+<svg width="16" height="10" viewport="0 0 16 10" xmlns="http://www.w3.org/2000/svg">
+ <g>
+    <ellipse
+        fill="#000000"
+        stroke="#000"
+        cx="14.639"
+        cy="6.70718"
+        rx="7.84"
+        ry="5.36"
+        transform="matrix(0.575827 -0.190035 0.198273 0.551902 -2.04591 4.08097)"
+        />
+    <line
+        fill="none"
+        stroke="#000"
+        x1="0"
+        y1="5"
+        x2="16"
+        y2="5"
+        />
+ </g>
+</svg>
