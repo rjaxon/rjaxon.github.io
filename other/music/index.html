@@ -307,7 +307,7 @@ div {
                 <div class="note note-none hidden" style="left: 108px; top: 64px;" ></div>
             </div>
         </div-->
-        <iframe id="notes_frame" style=" border: 0px; width: 980px; height: 450px; position: relative; left: -3px;"
+        <iframe id="notes_frame" style=" border: 0px; width: 980px; height: 450px; position: relative; left: 0px;"
             src="./fretboard/index.html" title="notes"></iframe>
 
         <div>
@@ -332,8 +332,12 @@ div {
             <div id="board-bottom" class="board board-bottom hidden">
             </div>
 
+
+            <iframe id="pattern_frame" style=" border: 0px; width: 1083px; height: 278px; position: relative; left: 0px;"
+            src="./fretboard/index.html?key=C&pattern" title="notes"></iframe>
+
             <!-- fret formula X = (fret * 66) + 9 -->
-            <div class="test-fretboard-top">
+            <div class="hidden test-fretboard-top">
               <img src="./svg/dot-single.svg" style="width: 50px; position: absolute; top: -10px; left: 210px;" />
               <img src="./svg/dot-single.svg" style="width: 50px; position: absolute; top: -10px; left: 342px;" />
               <img src="./svg/dot-single.svg" style="width: 50px; position: absolute; top: -10px; left: 474px;" />
@@ -343,7 +347,9 @@ div {
                 <img src="./svg/dot-single.svg" style="width: 50px; position: absolute; top:  7px; left: 0px;" />
               </span>
             </div>
-            <div class="test-fretboard"> </div>
+
+
+            <div class="test-fretboard hidden"> </div>
   
             <div>
                 <table border=0 style="font-family: monospace; font-size: 30px; width: 950px; font-weight: bold; text-align: center;">
@@ -746,6 +752,9 @@ keys.efm = 'e&flat; minor, E&flat;, F, G&flat;, A&flat;, B&flat;, C&flat;, D&fla
 
           let notes_frame = document.getElementById('notes_frame');
           notes_frame.src =  notes_frame.src.split('?')[0] + `?key=${capitalizeFirstLetter(major_key)}`;
+
+          let pattern_frame = document.getElementById('pattern_frame');
+          pattern_frame.src =  pattern_frame.src.split('?')[0] + `?key=${capitalizeFirstLetter(major_key)}&pattern`;
 
           test_load(offsets[fretkey.toLowerCase()]);
         }
