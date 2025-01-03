@@ -212,53 +212,69 @@ margin: 0px;
            let k = options.key || 'C';
            let notes = keys.board[k][index];
            let fretboard = document.getElementById('fretboard');
-           let tops = {
-              "high-e": 28,
-              "b": 63,
-              "g":  98,
-              "d": 133,
-              "a": 168,
-              "low-e": 203,
-           };
-           let lefts = [
-             19, 98, 158, 225, 
-             292, 355, 424, 487, 
-             553, 620, 687, 751,
-             819, 887, 948, 1015
-           ];
+
 
            if(notes) {
                for(let fret = 0; fret < notes.length; ++fret) {
                    n = notes[fret];
                    if(n) {
-                       let note_plain = n.replace(/\d+/g, '');
 
-                       let interval = 1 + keys.scale[k].indexOf(note_plain)
-                     console.log(s + ' ' + fret + ' ' + n );
-                     let span = document.createElement('span');
-                     span.style.position  = 'absolute';
-                     span.style.top = `${tops[s]}px`;
-                     span.style.left = `${lefts[fret]}px`;
-                     span.setAttribute('title', n);
+                     // let note_plain = n.replace(/\d+/g, '');
+                     // let valid_notes = " 1 2 3 4 5 6 7 ";
 
-                     let bg = document.createElement('span');
-                     bg.classList.add('pattern-bg');
-                     span.appendChild(bg);
+                     // if(options.triads) {
+                     //     valid_notes = " 1 3 5 ";
+                     // }
+                     // else if(options.pentatonic || options.blues) {
+                     //     valid_notes = " 1 2 3 5 6 ";
+                     // }
 
-                     let img = document.createElement('img');
-                     img.setAttribute('width', '42');
-                     img.style.position = 'absolute';
-                     let color = '';
-                     if(interval == 1) {
-                       color = '-red';
-                     }
-                     else if(interval == 6) {
-                       color = '-green';
-                     }
-                     img.src = `../svg/number${interval}${color}.svg`;
+                     // let interval = 1 + keys.scale[k].indexOf(note_plain)
 
-                     span.appendChild(img);
-                     fretboard.appendChild(span);
+                     // if(valid_notes.indexOf(interval) < 0) {
+                     //     continue;
+                     // }
+
+                    
+                     let valid_notes = getValidNotes(options, n);
+                     
+                    let note_plain = n.replace(/\d+/g, '');
+                     let interval = 1 + keys.scale[k].indexOf(note_plain)
+
+                     if(valid_notes.indexOf(interval) < 0) {
+                         continue;
+                     }        
+
+
+                      console.log(s + ' ' + fret + ' ' + n );
+
+                     addPatternItem(interval, s, fret, fretboard);
+
+
+                     // let span = document.createElement('span');
+                     // span.style.position  = 'absolute';
+                     // span.style.top = `${tops[s]}px`;
+                     // span.style.left = `${lefts[fret]}px`;
+                     // span.setAttribute('title', n);
+
+                     // let bg = document.createElement('span');
+                     // bg.classList.add('pattern-bg');
+                     // span.appendChild(bg);
+
+                     // let img = document.createElement('img');
+                     // img.setAttribute('width', '42');
+                     // img.style.position = 'absolute';
+                     // let color = '';
+                     // if(interval == 1) {
+                     //   color = '-red';
+                     // }
+                     // else if(interval == 6) {
+                     //   color = '-green';
+                     // }
+                     // img.src = `../svg/number${interval}${color}.svg`;
+
+                     // span.appendChild(img);
+                     // fretboard.appendChild(span);
                    }
                }
            }
@@ -323,6 +339,61 @@ margin: 0px;
            }
         }
 
+      function getValidNotes(options) {
+                     let valid_notes = " 1 2 3 4 5 6 7 ";
+
+                     if(options.triads) {
+                         valid_notes = " 1 3 5 ";
+                     }
+                     else if(options.pentatonic || options.blues) {
+                         valid_notes = " 1 2 3 5 6 ";
+                     }
+
+
+        return valid_notes;
+      }
+
+        function addPatternItem(interval, s, fret, fretboard) {
+           let tops = {
+              "high-e": 28,
+              "b": 63,
+              "g":  98,
+              "d": 133,
+              "a": 168,
+              "low-e": 203,
+           };
+           let lefts = [
+             19, 98, 158, 225, 
+             292, 355, 424, 487, 
+             553, 620, 687, 751,
+             819, 887, 948, 1015
+           ];
+
+          let span = document.createElement('span');
+          span.style.position  = 'absolute';
+          span.style.top = `${tops[s]}px`;
+          span.style.left = `${lefts[fret]}px`;
+          span.setAttribute('title', n.toUpperCase());
+
+          let bg = document.createElement('span');
+          bg.classList.add('pattern-bg');
+          span.appendChild(bg);
+
+          let img = document.createElement('img');
+          img.setAttribute('width', '42');
+          img.style.position = 'absolute';
+          let color = '';
+          if(interval == 1) {
+            color = '-red';
+          }
+          else if(interval == 6) {
+            color = '-green';
+          }
+          img.src = `../svg/number${interval}${color}.svg`;
+
+          span.appendChild(img);
+          fretboard.appendChild(span);
+        }
         
 
         function addNote(string, note, fret, accidental /*1 sharp, 2 flat, 3 natural */, interval) {
