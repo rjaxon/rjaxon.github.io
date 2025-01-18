@@ -1,0 +1,65 @@
+
+.header {
+    position: absolute;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.bars {
+    position: relative;
+    background-image: url(../svg/my-bars.svg);
+    width: 942px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position-y: 10px;
+}
+
+.note-container {
+    position: absolute;
+}
+
+.accidental {
+    position: absolute;
+    font-size: 14px;
+    font-weight: bolder;
+    background: white;
+}
+
+.flat {
+    top: -7px;
+    left: -3px;
+}
+.sharp {
+    top: -2px;
+    left: -3px;
+}
+
+.natural {
+    top: -7px;
+    left: -3px;
+    font-size: 16px;
+}
+
+.note {
+    position: absolute;
+    height: 10px;
+    left: 7px;
+}
+
+.note-bar {
+    left: 4px;
+}
+
+.pattern-bg {
+    display: inline;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background: white;
+    padding: 0px;
+    border: 1px solid white;
+    border-radius: 15px;
+    left: 5px;
+    top: 5px;
+}
+
